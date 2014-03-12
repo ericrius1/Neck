@@ -12,7 +12,7 @@ FW.World = World = (function() {
     FW.audio.masterGain.value = 1;
     FW.bodies = [];
     FW.camera = new THREE.PerspectiveCamera(60.0, this.SCREEN_WIDTH / this.SCREEN_HEIGHT, 1, this.camFar);
-    FW.camera.position.set(0, 80, 10);
+    FW.camera.position.set(3, 34, 66);
     this.controls = new THREE.TrackballControls(FW.camera);
     this.controls.rotateSpeed = 1.0;
     this.controls.zoomSpeed = 1.2;
