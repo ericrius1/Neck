@@ -30,34 +30,33 @@ FW.Screens = Screens = (function() {
   };
 
   Screens.prototype.layoutScreens = function() {
-    var geometry, material, position, side, startingXPos, startingZPos, x, xPos, z, zPos, _i, _j, _ref, _ref1;
-    startingXPos = -40;
-    startingZPos = -40;
-    for (x = _i = 0, _ref = this.numUnitsAcross; 0 <= _ref ? _i < _ref : _i > _ref; x = 0 <= _ref ? ++_i : --_i) {
-      for (z = _j = 0, _ref1 = this.numUnitsAcross; 0 <= _ref1 ? _j < _ref1 : _j > _ref1; z = 0 <= _ref1 ? ++_j : --_j) {
-        xPos = startingXPos + (x * this.screenSize);
-        console.log('xPos', xPos);
-        zPos = startingZPos + (z * this.screenSize);
-        position = new THREE.Vector3(xPos, 0, zPos);
-        this.screens.push(new FW.Screen(position));
-      }
-    }
-    material = Physijs.createMaterial(new THREE.MeshNormalMaterial(), .4, 0.3);
-    geometry = new THREE.CubeGeometry(1, 100, 100);
-    side = new Physijs.BoxMesh(geometry, material, 0);
-    side.position.x = 30;
-    FW.scene.add(side);
-    side = new Physijs.BoxMesh(geometry, material, 0);
-    side.position.x = -50;
-    FW.scene.add(side);
-    side = new Physijs.BoxMesh(geometry, material, 0);
-    side.position.z = 30;
-    side.rotation.y = Math.PI / 2;
-    FW.scene.add(side);
-    side = new Physijs.BoxMesh(geometry, material, 0);
-    side.position.z = -50;
-    side.rotation.y = Math.PI / 2;
-    return FW.scene.add(side);
+    var backWall, floor, frontWall, leftWall, rightWall, side, size, wallGeometry, wallMaterial;
+    size = 100;
+    wallMaterial = Physijs.createMaterial(new THREE.MeshNormalMaterial(), .4, 0.3);
+    side = 100;
+    wallGeometry = new THREE.CubeGeometry(side, 1, side);
+    floor = new Physijs.BoxMesh(wallGeometry, wallMaterial, 0);
+    FW.scene.add(floor);
+    frontWall = new Physijs.BoxMesh(wallGeometry, wallMaterial, 0);
+    frontWall.rotation.x = Math.PI / 2;
+    frontWall.position.z += side / 2;
+    frontWall.position.y += side / 2;
+    FW.scene.add(frontWall);
+    backWall = new Physijs.BoxMesh(wallGeometry, wallMaterial, 0);
+    backWall.rotation.x = Math.PI / 2;
+    backWall.position.z -= side / 2;
+    backWall.position.y += side / 2;
+    FW.scene.add(backWall);
+    leftWall = new Physijs.BoxMesh(wallGeometry, wallMaterial, 0);
+    leftWall.rotation.z = Math.PI / 2;
+    leftWall.position.x -= side / 2;
+    leftWall.position.y += side / 2;
+    FW.scene.add(leftWall);
+    rightWall = new Physijs.BoxMesh(wallGeometry, wallMaterial, 0);
+    rightWall.rotation.z = Math.PI / 2;
+    rightWall.position.x += side / 2;
+    rightWall.position.y += side / 2;
+    return FW.scene.add(rightWall);
   };
 
   Screens.prototype.update = function() {
