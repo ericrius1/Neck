@@ -34,8 +34,8 @@ FW.Screens = Screens = (function() {
     numScreensPerRow = 5;
     screenSize = side / numScreensPerRow;
     FW.screenGeometry = new THREE.CubeGeometry(side / numScreensPerRow, 1, side / numScreensPerRow);
-    for (x = _i = _ref = -side / 2, _ref1 = side / 2; screenSize > 0 ? _i <= _ref1 : _i >= _ref1; x = _i += screenSize) {
-      for (z = _j = _ref2 = -side / 2, _ref3 = side / 2; screenSize > 0 ? _j <= _ref3 : _j >= _ref3; z = _j += screenSize) {
+    for (x = _i = _ref = -side / 2 + screenSize / 2, _ref1 = side / 2 - screenSize / 2; screenSize > 0 ? _i <= _ref1 : _i >= _ref1; x = _i += screenSize) {
+      for (z = _j = _ref2 = -side / 2 + screenSize / 2, _ref3 = side / 2 - screenSize / 2; screenSize > 0 ? _j <= _ref3 : _j >= _ref3; z = _j += screenSize) {
         screen = new FW.Screen(new THREE.Vector3(x, 0, z));
       }
     }
@@ -46,6 +46,7 @@ FW.Screens = Screens = (function() {
     frontWall.position.z += side / 2;
     frontWall.position.y += side / 2;
     FW.scene.add(frontWall);
+    frontWall.visible = false;
     backWall = new Physijs.BoxMesh(wallGeometry, wallMaterial, 0);
     backWall.rotation.x = Math.PI / 2;
     backWall.position.z -= side / 2;
@@ -77,12 +78,10 @@ FW.Screens = Screens = (function() {
     }
     this.context.putImageData(imageData, 0, 0);
     FW.screenTexture.needsUpdate = true;
-    randIndex = Math.floor(rnd(0, 100));
-    if (randIndex >= 0 && randIndex < FW.balls.length) {
-      impulse = new THREE.Vector3(0, 2000, 0);
-      offset = new THREE.Vector3();
-      return FW.balls[randIndex].ball.applyImpulse(impulse, offset);
-    }
+    randIndex = Math.floor(rnd(0, FW.balls.length));
+    impulse = new THREE.Vector3(0, 1000, 0);
+    offset = new THREE.Vector3();
+    return FW.balls[randIndex].ball.applyImpulse(impulse, offset);
   };
 
   return Screens;

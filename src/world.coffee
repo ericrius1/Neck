@@ -10,7 +10,7 @@ FW.World = class World
 
     # CAMERA
     FW.camera = new THREE.PerspectiveCamera(60.0, @SCREEN_WIDTH / @SCREEN_HEIGHT, 1, @camFar)
-    FW.camera.position.set 0, 30, 30
+    FW.camera.position.set 0, 80, 10
 
     @controls = new THREE.TrackballControls(FW.camera)
 

@@ -51,8 +51,8 @@ FW.Screens = class Screens
     numScreensPerRow = 5
     screenSize = side/numScreensPerRow
     FW.screenGeometry = new THREE.CubeGeometry(side/numScreensPerRow, 1, side/numScreensPerRow)
-    for x in [-side/2..side/2] by screenSize
-      for z in [-side/2..side/2] by screenSize
+    for x in [-side/2 + screenSize/2..side/2- screenSize/2] by screenSize
+      for z in [-side/2 +screenSize/2..side/2 - screenSize/2] by screenSize
          screen = new FW.Screen(new THREE.Vector3(x, 0, z))
     #SCREEN GEOMETRY
     #FLOOR
@@ -64,6 +64,8 @@ FW.Screens = class Screens
     wallGeometry = new THREE.CubeGeometry side, 1, side
 
 
+
+
     #front side
     frontWall = new Physijs.BoxMesh \
       wallGeometry
@@ -73,6 +75,7 @@ FW.Screens = class Screens
     frontWall.position.z += side/2
     frontWall.position.y += side/2
     FW.scene.add frontWall
+    frontWall.visible = false
 
     #backside
     backWall = new Physijs.BoxMesh \
@@ -104,6 +107,7 @@ FW.Screens = class Screens
     rightWall.position.y += side/2
     FW.scene.add rightWall
 
+
   update: ->
     #creates the image data 
     imageData = @context.createImageData @width, @height
@@ -125,11 +129,10 @@ FW.Screens = class Screens
     FW.screenTexture.needsUpdate = true
 
     # #picks a ball to add impulse to
-    randIndex = Math.floor (rnd(0, 100))
-    if randIndex >=0 and randIndex < FW.balls.length
-      impulse = new THREE.Vector3(0, 2000, 0)
-      offset = new THREE.Vector3()
-      FW.balls[randIndex].ball.applyImpulse impulse, offset
+    randIndex = Math.floor(rnd(0, FW.balls.length))
+    impulse = new THREE.Vector3(0, 1000, 0)
+    offset = new THREE.Vector3()
+    FW.balls[randIndex].ball.applyImpulse impulse, offset
 
 
 
