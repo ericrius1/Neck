@@ -2,7 +2,7 @@ var Screen;
 
 FW.Screen = Screen = (function() {
   function Screen(position) {
-    var h, handleCollision, material, screenMaterial, w,
+    var ball, h, handleCollision, material, screenMaterial, w,
       _this = this;
     this.timeSinceLastCollision = 0;
     this.spiceRange = {
@@ -45,7 +45,8 @@ FW.Screen = Screen = (function() {
       return _this.uniforms.spice.value.set(rnd(_this.spiceRange.startX, _this.spiceRange.startY), rnd(_this.spiceRange.endX, _this.spiceRange.endY));
     };
     this.screen.addEventListener('collision', handleCollision);
-    this.ball = new FW.Ball(new THREE.Vector3(position.x, position.y + 10, position.z));
+    ball = new FW.Ball(new THREE.Vector3(position.x, position.y + 10, position.z));
+    FW.balls.push(ball);
   }
 
   return Screen;

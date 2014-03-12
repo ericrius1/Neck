@@ -4,9 +4,8 @@ FW.Screens = Screens = (function() {
   function Screens() {
     var canvas, imageData, pixelsRoot;
     this.screens = [];
-    this.screenSize = 20;
+    FW.balls = [];
     this.numUnitsAcross = 4;
-    FW.screenGeometry = new THREE.CubeGeometry(this.screenSize, 1, this.screenSize);
     canvas = document.getElementById('textureData');
     this.context = canvas.getContext('2d');
     this.width = canvas.width;
@@ -30,13 +29,18 @@ FW.Screens = Screens = (function() {
   };
 
   Screens.prototype.layoutScreens = function() {
-    var backWall, floor, frontWall, leftWall, rightWall, side, size, wallGeometry, wallMaterial;
-    size = 100;
-    wallMaterial = Physijs.createMaterial(new THREE.MeshNormalMaterial(), .4, 0.3);
+    var backWall, frontWall, leftWall, numScreensPerRow, rightWall, screen, screenSize, side, wallGeometry, wallMaterial, x, z, _i, _j, _ref, _ref1, _ref2, _ref3;
     side = 100;
+    numScreensPerRow = 5;
+    screenSize = side / numScreensPerRow;
+    FW.screenGeometry = new THREE.CubeGeometry(side / numScreensPerRow, 1, side / numScreensPerRow);
+    for (x = _i = _ref = -side / 2, _ref1 = side / 2; screenSize > 0 ? _i <= _ref1 : _i >= _ref1; x = _i += screenSize) {
+      for (z = _j = _ref2 = -side / 2, _ref3 = side / 2; screenSize > 0 ? _j <= _ref3 : _j >= _ref3; z = _j += screenSize) {
+        screen = new FW.Screen(new THREE.Vector3(x, 0, z));
+      }
+    }
+    wallMaterial = Physijs.createMaterial(new THREE.MeshNormalMaterial(), .4, 0.3);
     wallGeometry = new THREE.CubeGeometry(side, 1, side);
-    floor = new Physijs.BoxMesh(wallGeometry, wallMaterial, 0);
-    FW.scene.add(floor);
     frontWall = new Physijs.BoxMesh(wallGeometry, wallMaterial, 0);
     frontWall.rotation.x = Math.PI / 2;
     frontWall.position.z += side / 2;
@@ -74,10 +78,10 @@ FW.Screens = Screens = (function() {
     this.context.putImageData(imageData, 0, 0);
     FW.screenTexture.needsUpdate = true;
     randIndex = Math.floor(rnd(0, 100));
-    if (randIndex >= 0 && randIndex < 16) {
+    if (randIndex >= 0 && randIndex < FW.balls.length) {
       impulse = new THREE.Vector3(0, 2000, 0);
       offset = new THREE.Vector3();
-      return this.screens[randIndex].ball.ball.applyImpulse(impulse, offset);
+      return FW.balls[randIndex].ball.applyImpulse(impulse, offset);
     }
   };
 

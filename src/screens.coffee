@@ -3,11 +3,8 @@
 FW.Screens = class Screens
   constructor: ->
     @screens = []
-    @screenSize = 20
+    FW.balls = []
     @numUnitsAcross = 4
-
-    #SCREEN GEOMETRY
-    FW.screenGeometry = new THREE.CubeGeometry(@screenSize, 1, @screenSize)
     #create a canvas element
     canvas = document.getElementById('textureData')
     @context = canvas.getContext('2d')
@@ -50,23 +47,21 @@ FW.Screens = class Screens
     #     zPos = startingZPos + (z * @screenSize)
     #     position = new THREE.Vector3 xPos, 0, zPos
     #     @screens.push new FW.Screen(position)
-
-
-    size = 100
- 
+    side = 100
+    numScreensPerRow = 5
+    screenSize = side/numScreensPerRow
+    FW.screenGeometry = new THREE.CubeGeometry(side/numScreensPerRow, 1, side/numScreensPerRow)
+    for x in [-side/2..side/2] by screenSize
+      for z in [-side/2..side/2] by screenSize
+         screen = new FW.Screen(new THREE.Vector3(x, 0, z))
+    #SCREEN GEOMETRY
+    #FLOOR
+   
     wallMaterial = Physijs.createMaterial \
       new THREE.MeshNormalMaterial()
       ,.4
       ,0.3 
-    side = 100
     wallGeometry = new THREE.CubeGeometry side, 1, side
-    
-    #FLOOR
-    floor = new Physijs.BoxMesh \
-      wallGeometry
-      ,wallMaterial
-      ,0 #mass
-    FW.scene.add floor
 
 
     #front side
@@ -109,9 +104,6 @@ FW.Screens = class Screens
     rightWall.position.y += side/2
     FW.scene.add rightWall
 
-
-
-    
   update: ->
     #creates the image data 
     imageData = @context.createImageData @width, @height
@@ -132,12 +124,12 @@ FW.Screens = class Screens
     #updates the texture
     FW.screenTexture.needsUpdate = true
 
-    #picks a ball to add impulse to
+    # #picks a ball to add impulse to
     randIndex = Math.floor (rnd(0, 100))
-    if randIndex >=0 and randIndex < 16
+    if randIndex >=0 and randIndex < FW.balls.length
       impulse = new THREE.Vector3(0, 2000, 0)
       offset = new THREE.Vector3()
-      @screens[randIndex].ball.ball.applyImpulse impulse, offset
+      FW.balls[randIndex].ball.applyImpulse impulse, offset
 
 
 

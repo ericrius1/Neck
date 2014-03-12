@@ -47,7 +47,8 @@ FW.Screen = class Screen
     @screen.addEventListener('collision', handleCollision)
 
     #associate a ball with a screen
-    @ball = new FW.Ball new THREE.Vector3(position.x, position.y + 10, position.z)
+    ball = new FW.Ball new THREE.Vector3(position.x, position.y + 10, position.z)
+    FW.balls.push ball
 
     
 
