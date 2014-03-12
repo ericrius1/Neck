@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Drinkin</title>
+    <LINK REL=StyleSheet HREF="css/styles.css" TYPE="text/css" MEDIA=screen>
+</head>
+<body>
+
+    <script src="lib/three.js"></script>
+    <script src="lib/ShaderParticles.js"></script>
+    <script src="lib/stats.js"></script>
+
+
+    <script src="lib/Detector.js"></script>
+
+    <script src="lib/TrackballControls.js"></script>
+
+    <script src='lib/physijs/physi.js'></script>
+
+    <script src="lib/utils.js"></script>
+
+    <script src="build/js/main.js"></script>
+    <script src="build/js/director.js"></script>
+    <script src="build/js/ball.js"></script>
+    <script src="build/js/screen.js"></script>
+    <script src="build/js/screens.js"></script>
+    <script src="build/js/spectrum.js"></script>
+    <script src="build/js//audio.js"></script>
+    <script src ='build/js/world.js'></script>
+
+
+    <script id ="fragmentShader1" type="x-shader/x-fragment">
+
+
+        uniform vec2 resolution;
+        uniform vec2 spice;
+
+        //Audio, passed through via texture
+        uniform sampler2D texture;
+        
+        uniform float time;
+        
+        varying vec2 vUv;
+        void main( void )
+        {
+
+          vec2 v;
+          v.x = abs((vUv.x - 0.5)*2.0);
+          v.y = abs((vUv.y - 0.5)*2.0);
+
+          float pi2 = 3.1415926535 * 2.0;
+          float cx = cos(spice.x * pi2);
+          float cy = sin(spice.y * pi2);
+
+          float z = 0.0;
+      
+          float m = 0.0;
+          float r = 0.0;
+          float iter = 0.0;
+
+          float cutoff = 5000.0;
+          for(int i = 0; i < 5; i ++){
+
+            v.x = abs(v.x); 
+            v.y = abs(v.y);
+
+            m = v.x * v.x + v.y * v.y  ;
+
+            v.x = v.x / m + cx ;
+            v.y = v.y / m + cy ;
+
+            float aX = texture2D( texture, vec2(v.x  , 0.0) ).r;
+            float aY = texture2D( texture, vec2(v.y  , 0.0) ).a;
+
+            //higher denominator = greater effect music has on screen
+            v.x = v.x + aX/5.;
+            v.y = v.y  + aY/5. ;
+
+
+          }
+          float col = v.x*v.x + v.y*v.y;
+
+
+          normalize(v);
+
+          //015C65
+          gl_FragColor = vec4 ((v.x+v.y)*.1, (v.y*.01)+.1, (v.x*.4)+.3,1.0);
+
+        }
+    </script>
+
+
+
+    <script id="vertexShader" type="x-shader/x-vertex">
+
+        varying vec2 vUv;
+        void main()
+        {
+            vUv = uv;
+            vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+            gl_Position = projectionMatrix * mvPosition;
+        }
+
+    </script>
+
+  
+    <canvas height = "1" width = "256" id = "textureData"></canvas>
+    <div class= 'infoButton'>
+      <span class='infoText'>
+       <image class = 'icon' src='assets/star.png'>
+      </span>
+    </div>
+    <div class='infoWrapper'>
+      <div class='info'>
+        <h2>Title</h2>
+        <h4>Write Stuff Here</h4>
+      </div>
+    </div>
+
+</body>
+
+</html>
