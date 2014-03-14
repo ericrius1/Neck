@@ -29,7 +29,7 @@ FW.Screens = Screens = (function() {
   };
 
   Screens.prototype.layoutScreens = function() {
-    var backWall, frontWall, leftWall, numScreensPerRow, rightWall, screen, screenSize, side, wallGeometry, wallMaterial, x, z, _i, _j, _ref, _ref1, _ref2, _ref3;
+    var backWall, frontWall, leftWall, numScreensPerRow, rightWall, screen, screenGeo, screenSize, side, videoMaterial, wallGeometry, wallMaterial, x, z, _i, _j, _ref, _ref1, _ref2, _ref3;
     side = 100;
     numScreensPerRow = 5;
     screenSize = side / numScreensPerRow;
@@ -47,10 +47,19 @@ FW.Screens = Screens = (function() {
     frontWall.position.y += side / 2;
     FW.scene.add(frontWall);
     frontWall.visible = false;
-    backWall = new Physijs.BoxMesh(wallGeometry, wallMaterial, 0);
-    backWall.rotation.x = Math.PI / 2;
+    screenGeo = new THREE.CubeGeometry(100, 100, 1);
+    this.video = document.getElementById('video');
+    this.videoTexture = new THREE.Texture(this.video);
+    this.videoTexture.minFilter = THREE.LinearFilter;
+    this.videoTexture.magFilter = THREE.LinearFilter;
+    this.videoTexture.format = THREE.RGBFormat;
+    this.videoTexture.generateMipmaps = false;
+    videoMaterial = new THREE.MeshLambertMaterial({
+      map: this.videoTexture
+    });
+    backWall = new Physijs.BoxMesh(screenGeo, videoMaterial, 0);
     backWall.position.z -= side / 2;
-    backWall.position.y += side / 2;
+    backWall.position.y = side / 2;
     FW.scene.add(backWall);
     leftWall = new Physijs.BoxMesh(wallGeometry, wallMaterial, 0);
     leftWall.rotation.z = Math.PI / 2;
@@ -66,6 +75,9 @@ FW.Screens = Screens = (function() {
 
   Screens.prototype.update = function() {
     var a, b, g, i, imageData, impulse, offset, r, randIndex, x, y, _i, _ref;
+    if (this.video.readyState === this.video.HAVE_ENOUGH_DATA) {
+      this.videoTexture.needsUpdate = true;
+    }
     imageData = this.context.createImageData(this.width, this.height);
     for (i = _i = 0, _ref = this.pixels; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
       x = i;

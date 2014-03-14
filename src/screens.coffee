@@ -37,16 +37,7 @@ FW.Screens = class Screens
     imageData.data[index + 3] = a
 
   layoutScreens: ->
-    #FLOOR
-    # startingXPos = -40
-    # startingZPos = -40
-    # for x in [0...@numUnitsAcross]
-    #   for z in [0...@numUnitsAcross]
-    #     xPos = startingXPos + (x * @screenSize)
-    #     console.log 'xPos', xPos
-    #     zPos = startingZPos + (z * @screenSize)
-    #     position = new THREE.Vector3 xPos, 0, zPos
-    #     @screens.push new FW.Screen(position)
+
     side = 100
     numScreensPerRow = 5
     screenSize = side/numScreensPerRow
@@ -78,13 +69,20 @@ FW.Screens = class Screens
     frontWall.visible = false
 
     #backside
+    screenGeo = new THREE.CubeGeometry 100, 100, 1
+    @video = document.getElementById('video');
+    @videoTexture = new THREE.Texture(@video)
+    @videoTexture.minFilter = THREE.LinearFilter;
+    @videoTexture.magFilter = THREE.LinearFilter;
+    @videoTexture.format = THREE.RGBFormat;
+    @videoTexture.generateMipmaps = false;
+    videoMaterial = new THREE.MeshLambertMaterial(map: @videoTexture)
     backWall = new Physijs.BoxMesh \
-      wallGeometry
-      ,wallMaterial
+      screenGeo
+      ,videoMaterial
       ,0 #mass
-    backWall.rotation.x  = Math.PI/2
     backWall.position.z -= side/2
-    backWall.position.y += side/2
+    backWall.position.y = side/2
     FW.scene.add backWall
 
     #leftside
@@ -109,6 +107,9 @@ FW.Screens = class Screens
 
 
   update: ->
+    if @video.readyState is @video.HAVE_ENOUGH_DATA 
+      @videoTexture.needsUpdate = true
+
     #creates the image data 
     imageData = @context.createImageData @width, @height
 

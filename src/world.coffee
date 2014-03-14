@@ -10,7 +10,8 @@ FW.World = class World
 
     # CAMERA
     FW.camera = new THREE.PerspectiveCamera(60.0, @SCREEN_WIDTH / @SCREEN_HEIGHT, 1, @camFar)
-    FW.camera.position.set 3, 34, 66
+    FW.camera.position.set 3, 50, 80
+    FW.camera.lookAt new THREE.Vector3 0, 100, 0
     # FW.camera.setRotationFromEuler -.5, 0.04, -0.09
 
     @controls = new THREE.TrackballControls(FW.camera)
@@ -22,10 +23,12 @@ FW.World = class World
     @controls.noZoom = false;
     @controls.noPan = false;
 
+
     @controls.staticMoving = true;
     @controls.dynamicDampingFactor = 0.3;
 
     @initStats()
+
 
     #PHYSICS
     Physijs.scripts.worker = '/lib/physijs/physijs_worker.js';
@@ -39,6 +42,11 @@ FW.World = class World
       @physics_stats.update()
     @initSceneObjects()
     
+    #LIGHTING 
+    light = new THREE.DirectionalLight 0xffffff, 1
+    light.position.z = 10
+    FW.scene.add light
+
     
     # RENDERER
     FW.Renderer = new THREE.WebGLRenderer({antialias: true})

@@ -4,7 +4,8 @@ var World,
 FW.World = World = (function() {
   function World() {
     this.render = __bind(this.render, this);
-    var _this = this;
+    var light,
+      _this = this;
     FW.clock = new THREE.Clock();
     this.SCREEN_WIDTH = window.innerWidth;
     this.SCREEN_HEIGHT = window.innerHeight;
@@ -12,7 +13,8 @@ FW.World = World = (function() {
     FW.audio.masterGain.value = 1;
     FW.bodies = [];
     FW.camera = new THREE.PerspectiveCamera(60.0, this.SCREEN_WIDTH / this.SCREEN_HEIGHT, 1, this.camFar);
-    FW.camera.position.set(3, 34, 66);
+    FW.camera.position.set(3, 50, 80);
+    FW.camera.lookAt(new THREE.Vector3(0, 100, 0));
     this.controls = new THREE.TrackballControls(FW.camera);
     this.controls.rotateSpeed = 1.0;
     this.controls.zoomSpeed = 1.2;
@@ -31,6 +33,9 @@ FW.World = World = (function() {
       return _this.physics_stats.update();
     });
     this.initSceneObjects();
+    light = new THREE.DirectionalLight(0xffffff, 1);
+    light.position.z = 10;
+    FW.scene.add(light);
     FW.Renderer = new THREE.WebGLRenderer({
       antialias: true
     });
