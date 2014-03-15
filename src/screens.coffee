@@ -70,7 +70,10 @@ FW.Screens = class Screens
 
     #backside
     screenGeo = new THREE.CubeGeometry 100, 100, 1
-    @video = document.getElementById('video');
+    @video = document.createElement('video');
+    @video.src = 'assets/intro.mp4'
+    if window.soundOff isnt true
+      @video.autoplay = true
     @videoTexture = new THREE.Texture(@video)
     @videoTexture.minFilter = THREE.LinearFilter;
     @videoTexture.magFilter = THREE.LinearFilter;
@@ -129,11 +132,11 @@ FW.Screens = class Screens
     #updates the texture
     FW.screenTexture.needsUpdate = true
 
-    # #picks a ball to add impulse to
-    randIndex = Math.floor(rnd(0, FW.balls.length))
-    impulse = new THREE.Vector3(0, 1000, 0)
-    offset = new THREE.Vector3()
-    FW.balls[randIndex].ball.applyImpulse impulse, offset
+    # # #picks a ball to add impulse to
+    # randIndex = Math.floor(rnd(0, FW.balls.length))
+    # impulse = new THREE.Vector3(0, 1000, 0)
+    # offset = new THREE.Vector3()
+    # FW.balls[randIndex].ball.applyImpulse impulse, offset
 
 
 

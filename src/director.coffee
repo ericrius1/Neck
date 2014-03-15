@@ -6,10 +6,15 @@ FW.Director = class Director
 
   startShow: ->
     @startTime = Date.now()
+    setTimeout = (()=>
+      console.log 'yaaar'
+    1000)
+
 
     FW.world = new FW.World()
     unless soundOff
-      FW.audio.source.noteOn(0)
+      #when, starthere, duration
+      FW.audio.source.noteGrainOn(8, 0, 1000000)
 
     @run()
 

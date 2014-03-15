@@ -10,19 +10,7 @@ FW.Ball= class Ball
     @ball = new Physijs.SphereMesh sphereGeometry, ballMaterial, undefined
     @ball.position = @position
     FW.scene.add @ball
-    handleCollision = (collidedWith, linearVelocity, angularVelocity) ->
-      if collidedWith.material.color?
-        otherColor = collidedWith.material.color
-        myColor = @material.color
-        newRed = (myColor.r + otherColor.r)/2
-        newGreen = (myColor.g + otherColor.g)/2
-        newBlue = (myColor.b + otherColor.b)/2
-        newColor = new THREE.Color()
-        newColor.setRGB(newRed, newGreen, newBlue)
-        @material.color = newColor
-        collidedWith.material.color = newColor
 
-    @ball.addEventListener('collision', handleCollision);
 
 
 

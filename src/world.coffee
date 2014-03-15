@@ -9,23 +9,22 @@ FW.World = class World
     FW.bodies= []
 
     # CAMERA
-    FW.camera = new THREE.PerspectiveCamera(60.0, @SCREEN_WIDTH / @SCREEN_HEIGHT, 1, @camFar)
-    FW.camera.position.set 3, 50, 80
-    FW.camera.lookAt new THREE.Vector3 0, 100, 0
-    # FW.camera.setRotationFromEuler -.5, 0.04, -0.09
-
-    @controls = new THREE.TrackballControls(FW.camera)
-
-    @controls.rotateSpeed = 1.0;
-    @controls.zoomSpeed = 1.2;
-    @controls.panSpeed = 0.8;
-
-    @controls.noZoom = false;
-    @controls.noPan = false;
+    FW.camera = new THREE.PerspectiveCamera(70.0, @SCREEN_WIDTH / @SCREEN_HEIGHT, 1, @camFar)
+    FW.camera.position.set 0, 30, 80
 
 
-    @controls.staticMoving = true;
-    @controls.dynamicDampingFactor = 0.3;
+    # @controls = new THREE.TrackballControls(FW.camera)
+
+    # @controls.rotateSpeed = 1.0;
+    # @controls.zoomSpeed = 1.2;
+    # @controls.panSpeed = 0.8;
+
+    # @controls.noZoom = false;
+    # @controls.noPan = false;
+
+
+    # @controls.staticMoving = true;
+    # @controls.dynamicDampingFactor = 0.3;
 
     @initStats()
 
@@ -96,7 +95,7 @@ FW.World = class World
   render : =>
     # @spectrum.update()
     @screens.update()
-    @controls.update()
+    # @controls.update()
     @render_stats.update()
     delta = FW.clock.getDelta()
     FW.Renderer.render( FW.scene, FW.camera );

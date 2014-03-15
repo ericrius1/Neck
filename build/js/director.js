@@ -9,10 +9,15 @@ FW.Director = Director = (function() {
   }
 
   Director.prototype.startShow = function() {
+    var setTimeout,
+      _this = this;
     this.startTime = Date.now();
+    setTimeout = (function() {
+      return console.log('yaaar');
+    }, 1000);
     FW.world = new FW.World();
     if (!soundOff) {
-      FW.audio.source.noteOn(0);
+      FW.audio.source.noteGrainOn(8, 0, 1000000);
     }
     return this.run();
   };

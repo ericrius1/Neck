@@ -48,7 +48,11 @@ FW.Screens = Screens = (function() {
     FW.scene.add(frontWall);
     frontWall.visible = false;
     screenGeo = new THREE.CubeGeometry(100, 100, 1);
-    this.video = document.getElementById('video');
+    this.video = document.createElement('video');
+    this.video.src = 'assets/intro.mp4';
+    if (window.soundOff !== true) {
+      this.video.autoplay = true;
+    }
     this.videoTexture = new THREE.Texture(this.video);
     this.videoTexture.minFilter = THREE.LinearFilter;
     this.videoTexture.magFilter = THREE.LinearFilter;
@@ -74,7 +78,7 @@ FW.Screens = Screens = (function() {
   };
 
   Screens.prototype.update = function() {
-    var a, b, g, i, imageData, impulse, offset, r, randIndex, x, y, _i, _ref;
+    var a, b, g, i, imageData, r, x, y, _i, _ref;
     if (this.video.readyState === this.video.HAVE_ENOUGH_DATA) {
       this.videoTexture.needsUpdate = true;
     }
@@ -89,11 +93,7 @@ FW.Screens = Screens = (function() {
       this.setPixel(imageData, x, y, r, g, b, a);
     }
     this.context.putImageData(imageData, 0, 0);
-    FW.screenTexture.needsUpdate = true;
-    randIndex = Math.floor(rnd(0, FW.balls.length));
-    impulse = new THREE.Vector3(0, 1000, 0);
-    offset = new THREE.Vector3();
-    return FW.balls[randIndex].ball.applyImpulse(impulse, offset);
+    return FW.screenTexture.needsUpdate = true;
   };
 
   return Screens;
