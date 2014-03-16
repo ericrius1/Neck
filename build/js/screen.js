@@ -37,7 +37,7 @@ FW.Screen = Screen = (function() {
       vertexShader: document.getElementById('vertexShader').textContent,
       fragmentShader: document.getElementById('fragmentShader1').textContent
     });
-    screenMaterial = Physijs.createMaterial(material, 1.0, 0.0);
+    screenMaterial = Physijs.createMaterial(material, 0, 1.5);
     this.screen = new Physijs.BoxMesh(FW.screenGeometry, screenMaterial, 0);
     this.screen.position = position;
     FW.scene.add(this.screen);

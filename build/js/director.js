@@ -9,11 +9,10 @@ FW.Director = Director = (function() {
   }
 
   Director.prototype.startShow = function() {
-    var setTimeout,
-      _this = this;
+    var _this = this;
     this.startTime = Date.now();
-    setTimeout = (function() {
-      return console.log('yaaar');
+    setTimeout(function() {
+      return _this.blowBalls();
     }, 1000);
     FW.world = new FW.World();
     if (!soundOff) {
@@ -26,6 +25,20 @@ FW.Director = Director = (function() {
     requestAnimationFrame(this.run);
     FW.audio.update();
     return FW.world.render();
+  };
+
+  Director.prototype.blowBalls = function() {
+    var ball, impulse, offset, _i, _len, _ref, _results;
+    console.log('blow');
+    _ref = FW.balls;
+    _results = [];
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      ball = _ref[_i];
+      impulse = new THREE.Vector3(rnd(-1000, 1000), rnd(1000, 4000), 2000);
+      offset = new THREE.Vector3();
+      _results.push(ball.ball.applyImpulse(impulse, offset));
+    }
+    return _results;
   };
 
   return Director;

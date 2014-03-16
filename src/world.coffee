@@ -7,24 +7,25 @@ FW.World = class World
     @camFar = 200000
     FW.audio.masterGain.value = 1
     FW.bodies= []
+    @gravity = -180
 
     # CAMERA
     FW.camera = new THREE.PerspectiveCamera(70.0, @SCREEN_WIDTH / @SCREEN_HEIGHT, 1, @camFar)
     FW.camera.position.set 0, 30, 80
 
 
-    # @controls = new THREE.TrackballControls(FW.camera)
+    @controls = new THREE.TrackballControls(FW.camera)
 
-    # @controls.rotateSpeed = 1.0;
-    # @controls.zoomSpeed = 1.2;
-    # @controls.panSpeed = 0.8;
+    @controls.rotateSpeed = 1.0;
+    @controls.zoomSpeed = 1.2;
+    @controls.panSpeed = 0.8;
 
-    # @controls.noZoom = false;
-    # @controls.noPan = false;
+    @controls.noZoom = false;
+    @controls.noPan = false;
 
 
-    # @controls.staticMoving = true;
-    # @controls.dynamicDampingFactor = 0.3;
+    @controls.staticMoving = true;
+    @controls.dynamicDampingFactor = 0.3;
 
     @initStats()
 
@@ -34,7 +35,7 @@ FW.World = class World
     Physijs.scripts.ammo = '/lib/physijs/ammo.js';
     # SCENE 
     FW.scene = new Physijs.Scene()
-    FW.scene.setGravity(new THREE.Vector3( 0, -90, 0 ));
+    FW.scene.setGravity(new THREE.Vector3( 0, @gravity, 0 ));
     FW.scene.addEventListener 'update', =>
       # args: timestep, maxSubsteps
       FW.scene.simulate undefined, 2
@@ -95,7 +96,7 @@ FW.World = class World
   render : =>
     # @spectrum.update()
     @screens.update()
-    # @controls.update()
+    @controls.update()
     @render_stats.update()
     delta = FW.clock.getDelta()
     FW.Renderer.render( FW.scene, FW.camera );

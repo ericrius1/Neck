@@ -32,8 +32,8 @@ FW.Screen = class Screen
       fragmentShader: document.getElementById('fragmentShader1').textContent
     screenMaterial = Physijs.createMaterial \
       material
-      ,1.0 # friction
-      ,0.0 #  (bounciness)
+      ,0 # friction
+      ,1.5 #  (bounciness)
     
     @screen = new Physijs.BoxMesh \
       FW.screenGeometry

@@ -29,7 +29,7 @@ FW.Screens = Screens = (function() {
   };
 
   Screens.prototype.layoutScreens = function() {
-    var backWall, frontWall, leftWall, numScreensPerRow, rightWall, screen, screenGeo, screenSize, side, videoMaterial, wallGeometry, wallMaterial, x, z, _i, _j, _ref, _ref1, _ref2, _ref3;
+    var backWall, ceiling, frontWall, leftWall, numScreensPerRow, preVideoMaterial, rightWall, screen, screenGeo, screenSize, side, videoMaterial, wallGeometry, wallMaterial, x, z, _i, _j, _ref, _ref1, _ref2, _ref3;
     side = 100;
     numScreensPerRow = 5;
     screenSize = side / numScreensPerRow;
@@ -39,7 +39,7 @@ FW.Screens = Screens = (function() {
         screen = new FW.Screen(new THREE.Vector3(x, 0, z));
       }
     }
-    wallMaterial = Physijs.createMaterial(new THREE.MeshNormalMaterial(), .4, 0.3);
+    wallMaterial = Physijs.createMaterial(new THREE.MeshNormalMaterial(), .4, .1);
     wallGeometry = new THREE.CubeGeometry(side, 1, side);
     frontWall = new Physijs.BoxMesh(wallGeometry, wallMaterial, 0);
     frontWall.rotation.x = Math.PI / 2;
@@ -58,9 +58,10 @@ FW.Screens = Screens = (function() {
     this.videoTexture.magFilter = THREE.LinearFilter;
     this.videoTexture.format = THREE.RGBFormat;
     this.videoTexture.generateMipmaps = false;
-    videoMaterial = new THREE.MeshLambertMaterial({
+    preVideoMaterial = new THREE.MeshLambertMaterial({
       map: this.videoTexture
     });
+    videoMaterial = Physijs.createMaterial(preVideoMaterial, .2, 1.0);
     backWall = new Physijs.BoxMesh(screenGeo, videoMaterial, 0);
     backWall.position.z -= side / 2;
     backWall.position.y = side / 2;
@@ -74,7 +75,10 @@ FW.Screens = Screens = (function() {
     rightWall.rotation.z = Math.PI / 2;
     rightWall.position.x += side / 2;
     rightWall.position.y += side / 2;
-    return FW.scene.add(rightWall);
+    FW.scene.add(rightWall);
+    ceiling = new Physijs.BoxMesh(wallGeometry, wallMaterial, 0);
+    ceiling.position.y += side;
+    return FW.scene.add(ceiling);
   };
 
   Screens.prototype.update = function() {

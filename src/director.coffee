@@ -6,8 +6,8 @@ FW.Director = class Director
 
   startShow: ->
     @startTime = Date.now()
-    setTimeout = (()=>
-      console.log 'yaaar'
+    setTimeout(()=>
+      @blowBalls()
     1000)
 
 
@@ -26,6 +26,11 @@ FW.Director = class Director
 
 
 
-
+  blowBalls: ->
+    console.log 'blow'
+    for ball in FW.balls
+      impulse = new THREE.Vector3(rnd(-1000, 1000), rnd(1000, 4000), 2000)
+      offset = new THREE.Vector3()
+      ball.ball.applyImpulse impulse, offset
 
 

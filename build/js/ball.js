@@ -9,7 +9,7 @@ FW.Ball = Ball = (function() {
     color.setRGB(rnd(0, 1), rnd(0, 1), rnd(0, 1));
     ballMaterial = Physijs.createMaterial(new THREE.MeshBasicMaterial({
       color: color
-    }), .2, 0);
+    }), .2, 1.0);
     this.ball = new Physijs.SphereMesh(sphereGeometry, ballMaterial, void 0);
     this.ball.position = this.position;
     FW.scene.add(this.ball);

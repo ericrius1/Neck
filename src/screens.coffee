@@ -46,12 +46,11 @@ FW.Screens = class Screens
       for z in [-side/2 +screenSize/2..side/2 - screenSize/2] by screenSize
          screen = new FW.Screen(new THREE.Vector3(x, 0, z))
     #SCREEN GEOMETRY
-    #FLOOR
    
     wallMaterial = Physijs.createMaterial \
       new THREE.MeshNormalMaterial()
-      ,.4
-      ,0.3 
+      ,.4   #friction
+      ,.1  #bouncy
     wallGeometry = new THREE.CubeGeometry side, 1, side
 
 
@@ -79,7 +78,11 @@ FW.Screens = class Screens
     @videoTexture.magFilter = THREE.LinearFilter;
     @videoTexture.format = THREE.RGBFormat;
     @videoTexture.generateMipmaps = false;
-    videoMaterial = new THREE.MeshLambertMaterial(map: @videoTexture)
+    preVideoMaterial = new THREE.MeshLambertMaterial(map: @videoTexture)
+    videoMaterial = Physijs.createMaterial \
+      preVideoMaterial
+      ,.2   #friction
+      ,1.0  #bouncy
     backWall = new Physijs.BoxMesh \
       screenGeo
       ,videoMaterial
@@ -108,6 +111,14 @@ FW.Screens = class Screens
     rightWall.position.y += side/2
     FW.scene.add rightWall
 
+    #ceiling
+    ceiling = new Physijs.BoxMesh \
+    wallGeometry
+    ,wallMaterial
+    ,0 #mass
+    ceiling.position.y += side
+    FW.scene.add ceiling
+
 
   update: ->
     if @video.readyState is @video.HAVE_ENOUGH_DATA 
@@ -132,11 +143,7 @@ FW.Screens = class Screens
     #updates the texture
     FW.screenTexture.needsUpdate = true
 
-    # # #picks a ball to add impulse to
-    # randIndex = Math.floor(rnd(0, FW.balls.length))
-    # impulse = new THREE.Vector3(0, 1000, 0)
-    # offset = new THREE.Vector3()
-    # FW.balls[randIndex].ball.applyImpulse impulse, offset
+
 
 
 
