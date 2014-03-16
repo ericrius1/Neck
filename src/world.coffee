@@ -1,6 +1,7 @@
 
 FW.World = class World
   constructor : ->
+    FW.bouncyFactor = 0.5
     FW.clock = new THREE.Clock()
     @SCREEN_WIDTH = window.innerWidth
     @SCREEN_HEIGHT = window.innerHeight

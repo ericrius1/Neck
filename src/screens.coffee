@@ -50,7 +50,7 @@ FW.Screens = class Screens
     wallMaterial = Physijs.createMaterial \
       new THREE.MeshNormalMaterial()
       ,.4   #friction
-      ,.1  #bouncy
+      ,FW.bouncyFactor  #bouncy
     wallGeometry = new THREE.CubeGeometry side, 1, side
 
 
@@ -82,7 +82,7 @@ FW.Screens = class Screens
     videoMaterial = Physijs.createMaterial \
       preVideoMaterial
       ,.2   #friction
-      ,1.0  #bouncy
+      ,FW.bouncyFactor  #bouncy
     backWall = new Physijs.BoxMesh \
       screenGeo
       ,videoMaterial

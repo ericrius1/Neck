@@ -39,7 +39,7 @@ FW.Screens = Screens = (function() {
         screen = new FW.Screen(new THREE.Vector3(x, 0, z));
       }
     }
-    wallMaterial = Physijs.createMaterial(new THREE.MeshNormalMaterial(), .4, .1);
+    wallMaterial = Physijs.createMaterial(new THREE.MeshNormalMaterial(), .4, FW.bouncyFactor);
     wallGeometry = new THREE.CubeGeometry(side, 1, side);
     frontWall = new Physijs.BoxMesh(wallGeometry, wallMaterial, 0);
     frontWall.rotation.x = Math.PI / 2;
@@ -61,7 +61,7 @@ FW.Screens = Screens = (function() {
     preVideoMaterial = new THREE.MeshLambertMaterial({
       map: this.videoTexture
     });
-    videoMaterial = Physijs.createMaterial(preVideoMaterial, .2, 1.0);
+    videoMaterial = Physijs.createMaterial(preVideoMaterial, .2, FW.bouncyFactor);
     backWall = new Physijs.BoxMesh(screenGeo, videoMaterial, 0);
     backWall.position.z -= side / 2;
     backWall.position.y = side / 2;

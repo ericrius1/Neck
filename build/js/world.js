@@ -6,6 +6,7 @@ FW.World = World = (function() {
     this.render = __bind(this.render, this);
     var light,
       _this = this;
+    FW.bouncyFactor = 0.5;
     FW.clock = new THREE.Clock();
     this.SCREEN_WIDTH = window.innerWidth;
     this.SCREEN_HEIGHT = window.innerHeight;

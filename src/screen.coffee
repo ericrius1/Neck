@@ -29,7 +29,7 @@ FW.Screen = class Screen
     screenMaterial = Physijs.createMaterial \
       material
       ,0 # friction
-      ,1.5 #  (bounciness)
+      ,FW.bouncyFactor #  (bounciness)
     
     @screen = new Physijs.BoxMesh \
       FW.screenGeometry
