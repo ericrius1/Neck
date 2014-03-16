@@ -8,7 +8,7 @@ FW.Director = class Director
     @startTime = Date.now()
     setTimeout(()=>
       @blowBalls()
-    1000)
+    18000)
 
 
     FW.world = new FW.World()

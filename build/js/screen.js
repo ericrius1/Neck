@@ -4,7 +4,8 @@ FW.Screen = Screen = (function() {
   function Screen(position) {
     var ball, h, handleCollision, material, screenMaterial, w,
       _this = this;
-    this.timeSinceLastCollision = 0;
+    this.timeOfLastCollision = Date.now();
+    this.debounceTime = 100;
     this.spiceRange = {
       startX: .23,
       startY: .7375,
@@ -42,7 +43,12 @@ FW.Screen = Screen = (function() {
     this.screen.position = position;
     FW.scene.add(this.screen);
     handleCollision = function() {
-      return _this.uniforms.spice.value.set(rnd(_this.spiceRange.startX, _this.spiceRange.startY), rnd(_this.spiceRange.endX, _this.spiceRange.endY));
+      var currentTime;
+      currentTime = Date.now();
+      if (currentTime - _this.timeOfLastCollision > _this.debounceTime) {
+        _this.uniforms.spice.value.set(rnd(_this.spiceRange.startX, _this.spiceRange.startY), rnd(_this.spiceRange.endX, _this.spiceRange.endY));
+      }
+      return _this.timeOfLastCollision = currentTime;
     };
     this.screen.addEventListener('collision', handleCollision);
     ball = new FW.Ball(new THREE.Vector3(position.x, position.y + 10, position.z));

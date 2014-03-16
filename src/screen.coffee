@@ -1,14 +1,10 @@
 #Just hanle one screen as physics mesh
 
 
-# ytop: .48
-# ybottom: 1
-
-# xleft: .23
-# xright: .7375
 FW.Screen = class Screen
   constructor: (position)->
-    @timeSinceLastCollision = 0
+    @timeOfLastCollision = Date.now()
+    @debounceTime = 100
     @spiceRange = 
       startX: .23
       startY: .7375
@@ -42,8 +38,12 @@ FW.Screen = class Screen
     @screen.position = position
     FW.scene.add( @screen )
     handleCollision = () =>
-      #Lets change the screen
-      @uniforms.spice.value.set rnd(@spiceRange.startX, @spiceRange.startY), rnd(@spiceRange.endX, @spiceRange.endY)
+      currentTime = Date.now()
+      if currentTime - @timeOfLastCollision > @debounceTime
+      #Lets change the screen if the time since last collision is greater than our debounce
+        @uniforms.spice.value.set rnd(@spiceRange.startX, @spiceRange.startY), rnd(@spiceRange.endX, @spiceRange.endY)
+      @timeOfLastCollision = currentTime
+
     @screen.addEventListener('collision', handleCollision)
 
     #associate a ball with a screen
