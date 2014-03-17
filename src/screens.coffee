@@ -2,6 +2,11 @@
 #Can every screen use the same basic material??
 FW.Screens = class Screens
   constructor: ->
+    @spiceRange = 
+      startX: .23
+      startY: .7375
+      startY: .48
+      endY: 1
     @screens = []
     FW.balls = []
     @numUnitsAcross = 4
@@ -38,6 +43,26 @@ FW.Screens = class Screens
 
   layoutScreens: ->
 
+    @uniforms = 
+      time: {type: 'f', value: 1.0}
+      resolution: { type: 'v2', value: new THREE.Vector2()}
+      spice: {type: 'v2', value: new THREE.Vector2(rnd(@spiceRange.startX, @spiceRange.startY), rnd(@spiceRange.endX, @spiceRange.endY))}
+      texture: {type: 't', value: FW.screenTexture}
+
+    w = 1/window.innerWidth
+    h = 1/window.innerHeight
+    @uniforms.resolution.value.set w, h
+
+
+    material = new THREE.ShaderMaterial
+      uniforms: @uniforms
+      vertexShader: document.getElementById('vertexShader').textContent
+      fragmentShader: document.getElementById('fragmentShader1').textContent
+    screenMaterial = Physijs.createMaterial \
+      material
+      ,0 # friction
+      ,FW.bouncyFactor #  (bounciness)
+
     side = 100
     numScreensPerRow = 5
     screenSize = side/numScreensPerRow
@@ -59,7 +84,7 @@ FW.Screens = class Screens
     #front side
     frontWall = new Physijs.BoxMesh \
       wallGeometry
-      ,wallMaterial
+      ,screenMaterial
       ,0 #mass
     frontWall.rotation.x  = Math.PI/2
     frontWall.position.z += side/2
@@ -94,7 +119,7 @@ FW.Screens = class Screens
     #leftside
     leftWall = new Physijs.BoxMesh \
       wallGeometry
-      ,wallMaterial
+      ,screenMaterial
       ,0 #mass
     leftWall.rotation.z  = Math.PI/2
     leftWall.position.x -= side/2
@@ -104,7 +129,7 @@ FW.Screens = class Screens
     #rightside
     rightWall = new Physijs.BoxMesh \
       wallGeometry
-      ,wallMaterial
+      ,screenMaterial
       ,0 #mass
     rightWall.rotation.z  = Math.PI/2
     rightWall.position.x += side/2
@@ -114,7 +139,7 @@ FW.Screens = class Screens
     #ceiling
     ceiling = new Physijs.BoxMesh \
     wallGeometry
-    ,wallMaterial
+    ,screenMaterial
     ,0 #mass
     ceiling.position.y += side
     FW.scene.add ceiling

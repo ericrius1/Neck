@@ -13,7 +13,7 @@ FW.Director = Director = (function() {
     this.startTime = Date.now();
     setTimeout(function() {
       return _this.blowBalls();
-    }, 18000);
+    }, 19000);
     FW.world = new FW.World();
     if (!soundOff) {
       FW.audio.source.noteGrainOn(8, 0, 1000000);

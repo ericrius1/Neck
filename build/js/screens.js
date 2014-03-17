@@ -3,6 +3,12 @@ var Screens;
 FW.Screens = Screens = (function() {
   function Screens() {
     var canvas, imageData, pixelsRoot;
+    this.spiceRange = {
+      startX: .23,
+      startY: .7375,
+      startY: .48,
+      endY: 1
+    };
     this.screens = [];
     FW.balls = [];
     this.numUnitsAcross = 4;
@@ -29,7 +35,34 @@ FW.Screens = Screens = (function() {
   };
 
   Screens.prototype.layoutScreens = function() {
-    var backWall, ceiling, frontWall, leftWall, numScreensPerRow, preVideoMaterial, rightWall, screen, screenGeo, screenSize, side, videoMaterial, wallGeometry, wallMaterial, x, z, _i, _j, _ref, _ref1, _ref2, _ref3;
+    var backWall, ceiling, frontWall, h, leftWall, material, numScreensPerRow, preVideoMaterial, rightWall, screen, screenGeo, screenMaterial, screenSize, side, videoMaterial, w, wallGeometry, wallMaterial, x, z, _i, _j, _ref, _ref1, _ref2, _ref3;
+    this.uniforms = {
+      time: {
+        type: 'f',
+        value: 1.0
+      },
+      resolution: {
+        type: 'v2',
+        value: new THREE.Vector2()
+      },
+      spice: {
+        type: 'v2',
+        value: new THREE.Vector2(rnd(this.spiceRange.startX, this.spiceRange.startY), rnd(this.spiceRange.endX, this.spiceRange.endY))
+      },
+      texture: {
+        type: 't',
+        value: FW.screenTexture
+      }
+    };
+    w = 1 / window.innerWidth;
+    h = 1 / window.innerHeight;
+    this.uniforms.resolution.value.set(w, h);
+    material = new THREE.ShaderMaterial({
+      uniforms: this.uniforms,
+      vertexShader: document.getElementById('vertexShader').textContent,
+      fragmentShader: document.getElementById('fragmentShader1').textContent
+    });
+    screenMaterial = Physijs.createMaterial(material, 0, FW.bouncyFactor);
     side = 100;
     numScreensPerRow = 5;
     screenSize = side / numScreensPerRow;
@@ -41,7 +74,7 @@ FW.Screens = Screens = (function() {
     }
     wallMaterial = Physijs.createMaterial(new THREE.MeshNormalMaterial(), .4, FW.bouncyFactor);
     wallGeometry = new THREE.CubeGeometry(side, 1, side);
-    frontWall = new Physijs.BoxMesh(wallGeometry, wallMaterial, 0);
+    frontWall = new Physijs.BoxMesh(wallGeometry, screenMaterial, 0);
     frontWall.rotation.x = Math.PI / 2;
     frontWall.position.z += side / 2;
     frontWall.position.y += side / 2;
@@ -66,17 +99,17 @@ FW.Screens = Screens = (function() {
     backWall.position.z -= side / 2;
     backWall.position.y = side / 2;
     FW.scene.add(backWall);
-    leftWall = new Physijs.BoxMesh(wallGeometry, wallMaterial, 0);
+    leftWall = new Physijs.BoxMesh(wallGeometry, screenMaterial, 0);
     leftWall.rotation.z = Math.PI / 2;
     leftWall.position.x -= side / 2;
     leftWall.position.y += side / 2;
     FW.scene.add(leftWall);
-    rightWall = new Physijs.BoxMesh(wallGeometry, wallMaterial, 0);
+    rightWall = new Physijs.BoxMesh(wallGeometry, screenMaterial, 0);
     rightWall.rotation.z = Math.PI / 2;
     rightWall.position.x += side / 2;
     rightWall.position.y += side / 2;
     FW.scene.add(rightWall);
-    ceiling = new Physijs.BoxMesh(wallGeometry, wallMaterial, 0);
+    ceiling = new Physijs.BoxMesh(wallGeometry, screenMaterial, 0);
     ceiling.position.y += side;
     return FW.scene.add(ceiling);
   };
