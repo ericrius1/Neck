@@ -63,12 +63,10 @@ FW.World = World = (function() {
     this.render_stats.domElement.style.position = 'absolute';
     this.render_stats.domElement.style.top = '0px';
     this.render_stats.domElement.style.zIndex = 100;
-    document.body.appendChild(this.render_stats.domElement);
     this.physics_stats = new Stats();
     this.physics_stats.domElement.style.position = 'absolute';
     this.physics_stats.domElement.style.top = '50px';
-    this.physics_stats.domElement.style.zIndex = 100;
-    return document.body.appendChild(this.physics_stats.domElement);
+    return this.physics_stats.domElement.style.zIndex = 100;
   };
 
   World.prototype.render = function() {

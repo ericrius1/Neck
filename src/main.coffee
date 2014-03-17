@@ -20,13 +20,8 @@ window.soundOff = false
 window.onload = ->
   FW.audio = new FW.Audio()
   FW.director = new FW.Director()
-  infoEl = document.getElementsByClassName('infoWrapper')[0]
-  infoShowing = false
-  document.onclick = (event)-> 
-    el = event.target;
-    if (el.className is "icon") 
-      infoEl.style.display = if infoShowing then 'none' else 'block'
-      infoShowing = !infoShowing;
+
+
 
 
 

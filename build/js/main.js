@@ -19,17 +19,6 @@ FW.globalTick = 0.16;
 window.soundOff = false;
 
 window.onload = function() {
-  var infoEl, infoShowing;
   FW.audio = new FW.Audio();
-  FW.director = new FW.Director();
-  infoEl = document.getElementsByClassName('infoWrapper')[0];
-  infoShowing = false;
-  return document.onclick = function(event) {
-    var el;
-    el = event.target;
-    if (el.className === "icon") {
-      infoEl.style.display = infoShowing ? 'none' : 'block';
-      return infoShowing = !infoShowing;
-    }
-  };
+  return FW.director = new FW.Director();
 };
