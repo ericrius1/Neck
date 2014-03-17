@@ -32,8 +32,8 @@ FW.World = class World
 
 
     #PHYSICS
-    Physijs.scripts.worker = '/lib/physijs/physijs_worker.js';
-    Physijs.scripts.ammo = '/lib/physijs/ammo.js';
+    Physijs.scripts.worker = '../../lib/physijs/physijs_worker.js';
+    Physijs.scripts.ammo = '../../lib/physijs/ammo.js';
     # SCENE 
     FW.scene = new Physijs.Scene()
     FW.scene.setGravity(new THREE.Vector3( 0, @gravity, 0 ));

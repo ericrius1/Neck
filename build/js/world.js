@@ -17,8 +17,8 @@ FW.World = World = (function() {
     FW.camera = new THREE.PerspectiveCamera(70.0, this.SCREEN_WIDTH / this.SCREEN_HEIGHT, 1, this.camFar);
     FW.camera.position.set(0, 30, 80);
     this.initStats();
-    Physijs.scripts.worker = '/lib/physijs/physijs_worker.js';
-    Physijs.scripts.ammo = '/lib/physijs/ammo.js';
+    Physijs.scripts.worker = '../../lib/physijs/physijs_worker.js';
+    Physijs.scripts.ammo = '../../lib/physijs/ammo.js';
     FW.scene = new Physijs.Scene();
     FW.scene.setGravity(new THREE.Vector3(0, this.gravity, 0));
     FW.scene.addEventListener('update', function() {
