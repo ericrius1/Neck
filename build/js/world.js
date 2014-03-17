@@ -26,8 +26,11 @@ FW.World = World = (function() {
       return _this.physics_stats.update();
     });
     this.initSceneObjects();
-    light = new THREE.DirectionalLight(0xffffff, 1);
-    light.position.z = 10;
+    light = new THREE.PointLight(0xffffff, 1, 200);
+    light.position.set(-20, 20, 20);
+    FW.scene.add(light);
+    light = new THREE.PointLight(0xff00ff, 1, 200);
+    light.position.set(20, 20, -20);
     FW.scene.add(light);
     FW.Renderer = new THREE.WebGLRenderer({
       antialias: true
@@ -37,6 +40,7 @@ FW.World = World = (function() {
     window.addEventListener("resize", (function() {
       return _this.onWindowResize();
     }), false);
+    this.playWithBalls();
     FW.scene.simulate();
   }
 
@@ -74,6 +78,27 @@ FW.World = World = (function() {
     this.render_stats.update();
     delta = FW.clock.getDelta();
     return FW.Renderer.render(FW.scene, FW.camera);
+  };
+
+  World.prototype.playWithBalls = function() {
+    var ball, force, offset, _i, _len, _ref,
+      _this = this;
+    if (FW.ballImpulse > 2000) {
+      force = new THREE.Vector3(rnd(-50, 50), FW.ballImpulse, rnd(-50, 50));
+    } else {
+      force = new THREE.Vector3(0, FW.ballImpulse, 0);
+    }
+    offset = new THREE.Vector3();
+    _ref = _.sample(FW.balls, rnd(4, 8));
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      ball = _ref[_i];
+      if (ball.ball.position.y < 10) {
+        ball.ball.applyImpulse(force, offset);
+      }
+    }
+    return setTimeout(function() {
+      return _this.playWithBalls();
+    }, 100);
   };
 
   return World;

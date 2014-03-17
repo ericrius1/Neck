@@ -7,8 +7,8 @@ FW.Ball = Ball = (function() {
     sphereGeometry = new THREE.SphereGeometry(2, 32, 32);
     color = new THREE.Color();
     color.setRGB(rnd(0, 1), rnd(0, 1), rnd(0, 1));
-    ballMat = new THREE.MeshBasicMaterial({
-      map: THREE.ImageUtils.loadTexture('assets/photos/galaxy.jpg')
+    ballMat = new THREE.MeshPhongMaterial({
+      color: color
     });
     ballMaterial = Physijs.createMaterial(ballMat, -1.0, 1.0);
     this.ball = new Physijs.SphereMesh(sphereGeometry, ballMaterial, void 0);

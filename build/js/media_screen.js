@@ -16,7 +16,7 @@ FW.MediaScreen = MediaScreen = (function() {
     this.videoTexture.magFilter = THREE.LinearFilter;
     this.videoTexture.format = THREE.RGBFormat;
     this.videoTexture.generateMipmaps = false;
-    preVideoMaterial = new THREE.MeshLambertMaterial({
+    preVideoMaterial = new THREE.MeshBasicMaterial({
       map: this.videoTexture
     });
     videoMaterial = Physijs.createMaterial(preVideoMaterial, .2, FW.bouncyFactor);
@@ -24,7 +24,7 @@ FW.MediaScreen = MediaScreen = (function() {
     this.mediaScreen.position.z -= side / 2;
     this.mediaScreen.position.y = side / 2;
     FW.scene.add(this.mediaScreen);
-    invitationGeo = new THREE.PlaneGeometry(20, 30);
+    invitationGeo = new THREE.PlaneGeometry(27, 30);
     invitationMaterial = new THREE.MeshBasicMaterial({
       map: THREE.ImageUtils.loadTexture('assets/photos/home.jpg')
     });

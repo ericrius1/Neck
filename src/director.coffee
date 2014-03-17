@@ -3,6 +3,7 @@ FW.Director = class Director
     @scene1TotalTime = 10000
     @scene2TotalTime = 5000
     @startMusicTime = 10
+    FW.ballImpulse = 1000
 
 
 
@@ -13,6 +14,7 @@ FW.Director = class Director
       FW.fire.activate()
       setTimeout(()=>
         FW.fire.deactivate()
+        FW.ballImpulse *= 4
         FW.mediaScreen.loopVideo()
       1100)
     19000)

@@ -7,6 +7,7 @@ FW.Director = Director = (function() {
     this.scene1TotalTime = 10000;
     this.scene2TotalTime = 5000;
     this.startMusicTime = 10;
+    FW.ballImpulse = 1000;
   }
 
   Director.prototype.startShow = function() {
@@ -17,6 +18,7 @@ FW.Director = Director = (function() {
       FW.fire.activate();
       return setTimeout(function() {
         FW.fire.deactivate();
+        FW.ballImpulse *= 4;
         return FW.mediaScreen.loopVideo();
       }, 1100);
     }, 19000);

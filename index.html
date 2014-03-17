@@ -14,6 +14,7 @@
 
 
     <script src="lib/Detector.js"></script>
+    <script src="lib/underscore.min.js"></script>
 
     <script src="lib/TrackballControls.js"></script>
 
@@ -77,8 +78,8 @@
             float aY = texture2D( texture, vec2(v.y  , 0.0) ).a;
 
             //higher denominator = greater effect music has on screen
-            v.x = v.x + aX/2.;
-            v.y = v.y  + aY/2.;
+            v.x = v.x + aX/3.;
+            v.y = v.y  + aY/3.;
 
 
           }

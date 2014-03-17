@@ -4,10 +4,10 @@ FW.Screens = Screens = (function() {
   function Screens() {
     var canvas, imageData, pixelsRoot;
     this.spiceRange = {
-      startX: .23,
-      startY: .7375,
-      endX: .48,
-      endY: 1
+      startX: .5,
+      startY: .5675,
+      endX: .52,
+      endY: .63
     };
     this.screens = [];
     FW.balls = [];

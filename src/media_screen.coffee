@@ -12,7 +12,7 @@ FW.MediaScreen = class MediaScreen
     @videoTexture.magFilter = THREE.LinearFilter;
     @videoTexture.format = THREE.RGBFormat;
     @videoTexture.generateMipmaps = false;
-    preVideoMaterial = new THREE.MeshLambertMaterial(map: @videoTexture)
+    preVideoMaterial = new THREE.MeshBasicMaterial(map: @videoTexture)
     videoMaterial = Physijs.createMaterial \
       preVideoMaterial
       ,.2   #friction
@@ -25,7 +25,7 @@ FW.MediaScreen = class MediaScreen
     @mediaScreen.position.y = side/2
     FW.scene.add @mediaScreen
 
-    invitationGeo = new THREE.PlaneGeometry 20, 30
+    invitationGeo = new THREE.PlaneGeometry 27, 30
     invitationMaterial = new THREE.MeshBasicMaterial map: THREE.ImageUtils.loadTexture('assets/photos/home.jpg')
     @invitation = new THREE.Mesh invitationGeo, invitationMaterial
     @invitation.position.set 25, -7, 50 

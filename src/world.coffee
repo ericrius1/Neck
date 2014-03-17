@@ -44,8 +44,12 @@ FW.World = class World
     @initSceneObjects()
     
     #LIGHTING 
-    light = new THREE.DirectionalLight 0xffffff, 1
-    light.position.z = 10
+    light = new THREE.PointLight 0xffffff, 1, 200
+    light.position.set -20, 20, 20
+    FW.scene.add light
+
+    light = new THREE.PointLight 0xff00ff, 1, 200
+    light.position.set 20, 20, -20
     FW.scene.add light
 
     
@@ -59,6 +63,7 @@ FW.World = class World
       @onWindowResize()
     ), false
 
+    @playWithBalls()
 
     FW.scene.simulate()
 
@@ -105,6 +110,20 @@ FW.World = class World
     @render_stats.update()
     delta = FW.clock.getDelta()
     FW.Renderer.render( FW.scene, FW.camera );
+
+  playWithBalls: ->
+    if FW.ballImpulse > 2000
+      force = new THREE.Vector3 rnd(-50, 50), FW.ballImpulse, rnd(-50, 50)
+    else
+      force = new THREE.Vector3 0, FW.ballImpulse, 0
+    offset = new THREE.Vector3()
+
+    for ball in _.sample(FW.balls, rnd(4, 8))
+      if ball.ball.position.y < 10
+        ball.ball.applyImpulse force, offset
+    setTimeout(()=>
+      @playWithBalls()
+    100)
 
 
 
