@@ -28,7 +28,7 @@ FW.MediaScreen = MediaScreen = (function() {
 
   MediaScreen.prototype.beginSlideShow = function() {
     this.currentIndex = 0;
-    return this.updateSlideShow();
+    return this.video.src = 'assets/avatar.mp4';
   };
 
   MediaScreen.prototype.updateSlideShow = function() {

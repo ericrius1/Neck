@@ -35,7 +35,8 @@ FW.MediaScreen = class MediaScreen
   #We've finished the video, now we transition to a slideshow
   beginSlideShow: ->
     @currentIndex = 0
-    @updateSlideShow();
+    # @updateSlideShow();
+    @video.src = 'assets/avatar.mp4'
 
   updateSlideShow: ->
     if @currentIndex >= @fileNames.length
