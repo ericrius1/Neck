@@ -3,7 +3,7 @@ var MediaScreen;
 FW.MediaScreen = MediaScreen = (function() {
   function MediaScreen() {
     var preVideoMaterial, screenGeo, side, videoMaterial;
-    this.fileNames = ['assets/photos/neck1.jpg', 'assets/photos/neck2.jpg', 'assets/photos/neck3.jpg', 'assets/photos/kindness.jpg'];
+    this.fileNames = ['assets/photos/neck1.jpg', 'assets/photos/neck2.jpg', 'assets/photos/neck3.jpg', 'assets/photos/kindness.jpg', 'assets/photos/home.jpg'];
     side = 100;
     screenGeo = new THREE.CubeGeometry(100, 100, 1);
     this.video = document.createElement('video');
@@ -33,8 +33,8 @@ FW.MediaScreen = MediaScreen = (function() {
 
   MediaScreen.prototype.updateSlideShow = function() {
     var _this = this;
-    if (this.currentIndex === this.fileNames.length) {
-      this.currentIndex = 0;
+    if (this.currentIndex >= this.fileNames.length) {
+      return;
     }
     this.mediaScreen.material = new THREE.MeshBasicMaterial({
       map: THREE.ImageUtils.loadTexture(this.fileNames[this.currentIndex])
@@ -42,7 +42,7 @@ FW.MediaScreen = MediaScreen = (function() {
     return setTimeout(function() {
       _this.currentIndex++;
       return _this.updateSlideShow();
-    }, 5000);
+    }, 8000);
   };
 
   MediaScreen.prototype.update = function() {

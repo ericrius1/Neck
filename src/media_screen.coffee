@@ -5,6 +5,8 @@ FW.MediaScreen = class MediaScreen
       'assets/photos/neck2.jpg',
       'assets/photos/neck3.jpg',
       'assets/photos/kindness.jpg',
+      'assets/photos/home.jpg',
+
     ]
     side = 100
     screenGeo = new THREE.CubeGeometry 100, 100, 1
@@ -36,13 +38,13 @@ FW.MediaScreen = class MediaScreen
     @updateSlideShow();
 
   updateSlideShow: ->
-    if @currentIndex is @fileNames.length
-      @currentIndex = 0
+    if @currentIndex >= @fileNames.length
+      return
     @mediaScreen.material = new THREE.MeshBasicMaterial(map: THREE.ImageUtils.loadTexture(@fileNames[@currentIndex]))
     setTimeout(()=>
       @currentIndex++
       @updateSlideShow()
-    5000)
+    8000)
 
 
 
