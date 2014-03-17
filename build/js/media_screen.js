@@ -2,8 +2,8 @@ var MediaScreen;
 
 FW.MediaScreen = MediaScreen = (function() {
   function MediaScreen() {
-    var preVideoMaterial, screenGeo, side, videoMaterial;
-    this.fileNames = ['assets/photos/neck1.jpg', 'assets/photos/neck2.jpg', 'assets/photos/neck3.jpg', 'assets/photos/kindness.jpg', 'assets/photos/home.jpg'];
+    var invitationGeo, invitationMaterial, invitationPhotoFileName, preVideoMaterial, screenGeo, side, videoMaterial;
+    invitationPhotoFileName = 'assets/photos/home.jpg';
     side = 100;
     screenGeo = new THREE.CubeGeometry(100, 100, 1);
     this.video = document.createElement('video');
@@ -24,34 +24,29 @@ FW.MediaScreen = MediaScreen = (function() {
     this.mediaScreen.position.z -= side / 2;
     this.mediaScreen.position.y = side / 2;
     FW.scene.add(this.mediaScreen);
+    invitationGeo = new THREE.PlaneGeometry(20, 30);
+    invitationMaterial = new THREE.MeshBasicMaterial({
+      map: THREE.ImageUtils.loadTexture('assets/photos/home.jpg')
+    });
+    this.invitation = new THREE.Mesh(invitationGeo, invitationMaterial);
+    this.invitation.position.set(25, -7, 50);
+    FW.scene.add(this.invitation);
   }
 
-  MediaScreen.prototype.beginSlideShow = function() {
+  MediaScreen.prototype.loopVideo = function() {
     var _this = this;
-    this.currentIndex = 0;
     this.video.src = 'assets/avatar.mp4';
     return setTimeout(function() {
-      return _this.beginSlideShow();
+      return _this.loopVideo();
     }, 14000);
-  };
-
-  MediaScreen.prototype.updateSlideShow = function() {
-    var _this = this;
-    if (this.currentIndex >= this.fileNames.length) {
-      return;
-    }
-    this.mediaScreen.material = new THREE.MeshBasicMaterial({
-      map: THREE.ImageUtils.loadTexture(this.fileNames[this.currentIndex])
-    });
-    return setTimeout(function() {
-      _this.currentIndex++;
-      return _this.updateSlideShow();
-    }, 8000);
   };
 
   MediaScreen.prototype.update = function() {
     if (this.video.readyState === this.video.HAVE_ENOUGH_DATA) {
-      return this.videoTexture.needsUpdate = true;
+      this.videoTexture.needsUpdate = true;
+    }
+    if (this.invitation.position.y < 25) {
+      return this.invitation.position.y += .015;
     }
   };
 

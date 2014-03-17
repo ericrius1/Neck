@@ -1,13 +1,6 @@
 FW.MediaScreen = class MediaScreen
   constructor: ()->
-    @fileNames = [
-      'assets/photos/neck1.jpg',
-      'assets/photos/neck2.jpg',
-      'assets/photos/neck3.jpg',
-      'assets/photos/kindness.jpg',
-      'assets/photos/home.jpg',
-
-    ]
+    invitationPhotoFileName = 'assets/photos/home.jpg'
     side = 100
     screenGeo = new THREE.CubeGeometry 100, 100, 1
     @video = document.createElement('video');
@@ -32,25 +25,22 @@ FW.MediaScreen = class MediaScreen
     @mediaScreen.position.y = side/2
     FW.scene.add @mediaScreen
 
+    invitationGeo = new THREE.PlaneGeometry 20, 30
+    invitationMaterial = new THREE.MeshBasicMaterial map: THREE.ImageUtils.loadTexture('assets/photos/home.jpg')
+    @invitation = new THREE.Mesh invitationGeo, invitationMaterial
+    @invitation.position.set 25, -7, 50 
+    FW.scene.add @invitation
+
   #We've finished the video, now we transition to a slideshow
-  beginSlideShow: ->
-    @currentIndex = 0
-    # @updateSlideShow();
+  loopVideo: ->
     @video.src = 'assets/avatar.mp4'
     setTimeout(()=>
-      @beginSlideShow()
+      @loopVideo()
     14000)
-
-  updateSlideShow: ->
-    if @currentIndex >= @fileNames.length
-      return
-    @mediaScreen.material = new THREE.MeshBasicMaterial(map: THREE.ImageUtils.loadTexture(@fileNames[@currentIndex]))
-    setTimeout(()=>
-      @currentIndex++
-      @updateSlideShow()
-    8000)
 
 
   update: ->
     if @video.readyState is @video.HAVE_ENOUGH_DATA 
       @videoTexture.needsUpdate = true
+    if @invitation.position.y < 25 
+      @invitation.position.y += .015

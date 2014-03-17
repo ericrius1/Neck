@@ -17,7 +17,7 @@ FW.Director = Director = (function() {
       FW.fire.activate();
       return setTimeout(function() {
         FW.fire.deactivate();
-        return FW.mediaScreen.beginSlideShow();
+        return FW.mediaScreen.loopVideo();
       }, 1100);
     }, 19000);
     FW.world = new FW.World();

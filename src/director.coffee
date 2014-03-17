@@ -13,7 +13,7 @@ FW.Director = class Director
       FW.fire.activate()
       setTimeout(()=>
         FW.fire.deactivate()
-        FW.mediaScreen.beginSlideShow()
+        FW.mediaScreen.loopVideo()
       1100)
     19000)
 
