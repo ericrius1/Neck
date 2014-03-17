@@ -18,7 +18,7 @@ FW.Director = Director = (function() {
       FW.fire.activate();
       return setTimeout(function() {
         FW.fire.deactivate();
-        FW.ballImpulse *= 4;
+        FW.ballImpulse *= 5;
         return FW.mediaScreen.loopVideo();
       }, 1100);
     }, 19000);

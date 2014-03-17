@@ -14,7 +14,7 @@ FW.Director = class Director
       FW.fire.activate()
       setTimeout(()=>
         FW.fire.deactivate()
-        FW.ballImpulse *= 4
+        FW.ballImpulse *= 5
         FW.mediaScreen.loopVideo()
       1100)
     19000)
