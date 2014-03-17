@@ -47,7 +47,7 @@ FW.Screens = Screens = (function() {
       },
       spice: {
         type: 'v2',
-        value: new THREE.Vector2(rnd(this.spiceRange.startX, this.spiceRange.startY), rnd(this.spiceRange.endX, this.spiceRange.endY))
+        value: new THREE.Vector2()
       },
       texture: {
         type: 't',

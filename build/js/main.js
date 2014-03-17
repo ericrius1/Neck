@@ -16,7 +16,7 @@ if (typeof SC !== "undefined" && SC !== null) {
 
 FW.globalTick = 0.16;
 
-window.soundOff = false;
+window.soundOff = true;
 
 window.onload = function() {
   var infoEl, infoShowing;

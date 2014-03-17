@@ -19,8 +19,9 @@ FW.Fire = class Fire
       position: new THREE.Vector3 14, 35, -50
       velocity: new THREE.Vector3 0, 0, 100
       acceleration: new THREE.Vector3 0, 0, 10
-      velocitySpread: new THREE.Vector3 20, 20, 20
+      velocitySpread: new THREE.Vector3 40, 20, 40
       sizeStart: 20
+      colorStartSpread: new THREE.Vector3(.3, .2, .2)
       particleCount: 1000
      
     

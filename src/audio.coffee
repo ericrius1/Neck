@@ -12,7 +12,7 @@ FW.Audio = class Audio
     @masterAnalyser.frequencyBinCount = FW.frequencyBinCount
 
     @masterGain.connect @masterAnalyser
-    @masterGain.gain.value = 3.0
+    @masterGain.gain.value = 2.0
     @masterAnalyser.connect @musicContext.destination
     @loadFile('assets/Drinkin.mp3')
 

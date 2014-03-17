@@ -46,7 +46,7 @@ FW.Screens = class Screens
     @uniforms = 
       time: {type: 'f', value: 1.0}
       resolution: { type: 'v2', value: new THREE.Vector2()}
-      spice: {type: 'v2', value: new THREE.Vector2(rnd(@spiceRange.startX, @spiceRange.startY), rnd(@spiceRange.endX, @spiceRange.endY))}
+      spice: {type: 'v2', value: new THREE.Vector2()}
       texture: {type: 't', value: FW.screenTexture}
 
     w = 1/window.innerWidth
@@ -76,8 +76,6 @@ FW.Screens = class Screens
       ,.4   #friction
       ,FW.bouncyFactor  #bouncy
     wallGeometry = new THREE.CubeGeometry side, 1, side
-
-
 
 
     #front side
