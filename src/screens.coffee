@@ -91,7 +91,7 @@ FW.Screens = class Screens
     frontWall.visible = false
 
     #MEDIA SCREEN
-    @mediaScreen = new FW.MediaScreen()
+    FW.mediaScreen = new FW.MediaScreen()
  
 
     #leftside
@@ -124,7 +124,7 @@ FW.Screens = class Screens
 
 
   update: ->
-    @mediaScreen.update()
+    FW.mediaScreen.update()
 
 
     #creates the image data 

@@ -84,7 +84,7 @@ FW.Screens = Screens = (function() {
     frontWall.position.y += side / 2;
     FW.scene.add(frontWall);
     frontWall.visible = false;
-    this.mediaScreen = new FW.MediaScreen();
+    FW.mediaScreen = new FW.MediaScreen();
     leftWall = new Physijs.BoxMesh(wallGeometry, screenMaterial, 0);
     leftWall.rotation.z = Math.PI / 2;
     leftWall.position.x -= side / 2;
@@ -102,7 +102,7 @@ FW.Screens = Screens = (function() {
 
   Screens.prototype.update = function() {
     var a, b, g, i, imageData, r, x, y, _i, _ref;
-    this.mediaScreen.update();
+    FW.mediaScreen.update();
     imageData = this.context.createImageData(this.width, this.height);
     for (i = _i = 0, _ref = this.pixels; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
       x = i;

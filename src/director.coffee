@@ -2,6 +2,7 @@ FW.Director = class Director
   constructor: ->
     @scene1TotalTime = 10000
     @scene2TotalTime = 5000
+    @startMusicTime = 10
 
 
 
@@ -12,6 +13,7 @@ FW.Director = class Director
       FW.fire.activate()
       setTimeout(()=>
         FW.fire.deactivate()
+        FW.mediaScreen.beginSlideShow()
       1100)
     19000)
 
@@ -19,7 +21,7 @@ FW.Director = class Director
     FW.world = new FW.World()
     unless soundOff
       #when, starthere, duration
-      FW.audio.source.noteGrainOn(8, 0, 1000000)
+      FW.audio.source.noteGrainOn(@startMusicTime, 0, 1000000)
 
     @run()
 

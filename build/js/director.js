@@ -6,6 +6,7 @@ FW.Director = Director = (function() {
     this.run = __bind(this.run, this);
     this.scene1TotalTime = 10000;
     this.scene2TotalTime = 5000;
+    this.startMusicTime = 10;
   }
 
   Director.prototype.startShow = function() {
@@ -15,12 +16,13 @@ FW.Director = Director = (function() {
       _this.blowBalls();
       FW.fire.activate();
       return setTimeout(function() {
-        return FW.fire.deactivate();
+        FW.fire.deactivate();
+        return FW.mediaScreen.beginSlideShow();
       }, 1100);
     }, 19000);
     FW.world = new FW.World();
     if (!soundOff) {
-      FW.audio.source.noteGrainOn(8, 0, 1000000);
+      FW.audio.source.noteGrainOn(this.startMusicTime, 0, 1000000);
     }
     return this.run();
   };

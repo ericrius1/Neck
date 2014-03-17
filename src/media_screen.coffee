@@ -1,6 +1,11 @@
 FW.MediaScreen = class MediaScreen
   constructor: ()->
-    console.log 'yyaarr'
+    @fileNames = [
+      'assets/photos/neck1.jpg',
+      'assets/photos/neck2.jpg',
+      'assets/photos/neck3.jpg',
+      'assets/photos/kindness.jpg',
+    ]
     side = 100
     screenGeo = new THREE.CubeGeometry 100, 100, 1
     @video = document.createElement('video');
@@ -17,13 +22,31 @@ FW.MediaScreen = class MediaScreen
       preVideoMaterial
       ,.2   #friction
       ,FW.bouncyFactor  #bouncy
-    backWall = new Physijs.BoxMesh \
+    @mediaScreen = new Physijs.BoxMesh \
       screenGeo
       ,videoMaterial
       ,0 #mass
-    backWall.position.z -= side/2
-    backWall.position.y = side/2
-    FW.scene.add backWall
+    @mediaScreen.position.z -= side/2
+    @mediaScreen.position.y = side/2
+    FW.scene.add @mediaScreen
+
+  #We've finished the video, now we transition to a slideshow
+  beginSlideShow: ->
+    @currentIndex = 0
+    @updateSlideShow();
+
+  updateSlideShow: ->
+    if @currentIndex is @fileNames.length
+      @currentIndex = 0
+    @mediaScreen.material = new THREE.MeshBasicMaterial(map: THREE.ImageUtils.loadTexture(@fileNames[@currentIndex]))
+    setTimeout(()=>
+      @currentIndex++
+      @updateSlideShow()
+    5000)
+
+
+
+
 
 
   update: ->
