@@ -36,6 +36,7 @@
 
         uniform vec2 resolution;
         uniform vec2 spice;
+        uniform vec3 colorTwerk;
 
         //Audio, passed through via texture
         uniform sampler2D texture;
@@ -75,8 +76,8 @@
             float aY = texture2D( texture, vec2(v.y  , 0.0) ).a;
 
             //higher denominator = greater effect music has on screen
-            v.x = v.x + aX/5.;
-            v.y = v.y  + aY/5. ;
+            v.x = v.x + aX/2.;
+            v.y = v.y  + aY/2.;
 
 
           }
@@ -85,7 +86,7 @@
 
           normalize(v);
 
-          gl_FragColor = vec4 ((v.x+v.y)*.1, (v.y*.01)+.1, (v.x*.4)+.3,1.0);
+          gl_FragColor = vec4 ((v.x+v.y)*.1, (v.y*colorTwerk.x)+.1, (v.x*colorTwerk.y)+.3,1.0);
 
         }
     </script>

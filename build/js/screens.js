@@ -47,11 +47,15 @@ FW.Screens = Screens = (function() {
       },
       spice: {
         type: 'v2',
-        value: new THREE.Vector2()
+        value: new THREE.Vector2(rnd(this.spiceRange.startX, this.spiceRange.startY), rnd(this.spiceRange.endX, this.spiceRange.endY))
       },
       texture: {
         type: 't',
         value: FW.screenTexture
+      },
+      colorTwerk: {
+        type: 'v3',
+        value: new THREE.Vector3(.01, .1, .3)
       }
     };
     w = 1 / window.innerWidth;

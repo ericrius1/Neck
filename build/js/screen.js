@@ -28,6 +28,10 @@ FW.Screen = Screen = (function() {
       texture: {
         type: 't',
         value: FW.screenTexture
+      },
+      colorTwerk: {
+        type: 'v3',
+        value: new THREE.Vector3(rnd(0.05, .8), rnd(0.1, 0.7), rnd(0.2, 0.3))
       }
     };
     w = 1 / window.innerWidth;
@@ -38,7 +42,7 @@ FW.Screen = Screen = (function() {
       vertexShader: document.getElementById('vertexShader').textContent,
       fragmentShader: document.getElementById('fragmentShader1').textContent
     });
-    screenMaterial = Physijs.createMaterial(material, 0, FW.bouncyFactor);
+    screenMaterial = Physijs.createMaterial(material, -1.0, FW.bouncyFactor);
     this.screen = new Physijs.BoxMesh(FW.screenGeometry, screenMaterial, 0);
     this.screen.position = position;
     FW.scene.add(this.screen);

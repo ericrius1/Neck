@@ -16,6 +16,7 @@ FW.Screen = class Screen
       resolution: { type: 'v2', value: new THREE.Vector2()}
       spice: {type: 'v2', value: new THREE.Vector2(rnd(@spiceRange.startX, @spiceRange.startY), rnd(@spiceRange.endX, @spiceRange.endY))}
       texture: {type: 't', value: FW.screenTexture}
+      colorTwerk: {type: 'v3', value: new THREE.Vector3(rnd(0.05, .8), rnd(0.1, 0.7), rnd(0.2, 0.3))}
 
     w = 1/window.innerWidth
     h = 1/window.innerHeight
@@ -28,7 +29,7 @@ FW.Screen = class Screen
       fragmentShader: document.getElementById('fragmentShader1').textContent
     screenMaterial = Physijs.createMaterial \
       material
-      ,0 # friction
+      ,-1.0 # friction
       ,FW.bouncyFactor #  (bounciness)
     
     @screen = new Physijs.BoxMesh \

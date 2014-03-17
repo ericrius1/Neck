@@ -46,8 +46,9 @@ FW.Screens = class Screens
     @uniforms = 
       time: {type: 'f', value: 1.0}
       resolution: { type: 'v2', value: new THREE.Vector2()}
-      spice: {type: 'v2', value: new THREE.Vector2()}
+      spice: {type: 'v2', value: new THREE.Vector2(rnd(@spiceRange.startX, @spiceRange.startY), rnd(@spiceRange.endX, @spiceRange.endY))}
       texture: {type: 't', value: FW.screenTexture}
+      colorTwerk: {type: 'v3', value: new THREE.Vector3(.01, .1, .3)}
 
     w = 1/window.innerWidth
     h = 1/window.innerHeight
