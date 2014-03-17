@@ -66,11 +66,10 @@ FW.Screens = class Screens
     side = 100
     numScreensPerRow = 5
     screenSize = side/numScreensPerRow
-    FW.screenGeometry = new THREE.CubeGeometry(side/numScreensPerRow, 1, side/numScreensPerRow)
+    FW.screenGeometry = new THREE.CubeGeometry(side/numScreensPerRow, 20, side/numScreensPerRow)
     for x in [-side/2 + screenSize/2..side/2- screenSize/2] by screenSize
       for z in [-side/2 +screenSize/2..side/2 - screenSize/2] by screenSize
          screen = new FW.Screen(new THREE.Vector3(x, 0, z))
-    #SCREEN GEOMETRY
    
     wallMaterial = Physijs.createMaterial \
       new THREE.MeshNormalMaterial()

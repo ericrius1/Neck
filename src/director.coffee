@@ -10,6 +10,9 @@ FW.Director = class Director
     setTimeout(()=>
       @blowBalls()
       FW.fire.activate()
+      setTimeout(()=>
+        FW.fire.deactivate()
+      1100)
     19000)
 
 

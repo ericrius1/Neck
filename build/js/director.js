@@ -13,7 +13,10 @@ FW.Director = Director = (function() {
     this.startTime = Date.now();
     setTimeout(function() {
       _this.blowBalls();
-      return FW.fire.activate();
+      FW.fire.activate();
+      return setTimeout(function() {
+        return FW.fire.deactivate();
+      }, 1100);
     }, 19000);
     FW.world = new FW.World();
     if (!soundOff) {

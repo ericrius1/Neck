@@ -10,6 +10,7 @@ FW.Audio = Audio = (function() {
     this.masterAnalyser = this.musicContext.createAnalyser();
     this.masterAnalyser.frequencyBinCount = FW.frequencyBinCount;
     this.masterGain.connect(this.masterAnalyser);
+    this.masterGain.gain.value = 3.0;
     this.masterAnalyser.connect(this.musicContext.destination);
     this.loadFile('assets/Drinkin.mp3');
   }

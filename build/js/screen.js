@@ -51,7 +51,7 @@ FW.Screen = Screen = (function() {
       return _this.timeOfLastCollision = currentTime;
     };
     this.screen.addEventListener('collision', handleCollision);
-    ball = new FW.Ball(new THREE.Vector3(position.x, position.y + 10, position.z));
+    ball = new FW.Ball(new THREE.Vector3(position.x, position.y + 30, position.z));
     FW.balls.push(ball);
   }
 

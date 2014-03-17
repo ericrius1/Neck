@@ -15,15 +15,26 @@ FW.Fire = Fire = (function() {
   Fire.prototype.generateFire = function() {
     var colorStart;
     colorStart = new THREE.Color();
-    colorStart.setRGB(.8, .1, .9);
+    colorStart.setRGB(.7, .2, .3);
     this.fireEmitter = new SPE.Emitter({
-      colorStart: colorStart
+      colorStart: colorStart,
+      position: new THREE.Vector3(14, 35, -50),
+      velocity: new THREE.Vector3(0, 0, 100),
+      acceleration: new THREE.Vector3(0, 0, 10),
+      velocitySpread: new THREE.Vector3(20, 20, 20),
+      sizeStart: 20,
+      particleCount: 1000
     });
+    this.fireEmitter.disable();
     return this.fireGroup.addEmitter(this.fireEmitter);
   };
 
   Fire.prototype.activate = function() {
     return this.fireEmitter.enable();
+  };
+
+  Fire.prototype.deactivate = function() {
+    return this.fireEmitter.disable();
   };
 
   Fire.prototype.update = function() {
