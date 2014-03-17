@@ -19,7 +19,7 @@ FW.Fire = Fire = (function() {
     this.fireEmitter = new SPE.Emitter({
       colorStart: colorStart,
       position: new THREE.Vector3(14, 35, -50),
-      velocity: new THREE.Vector3(0, 0, 100),
+      velocity: new THREE.Vector3(0, 0, 150),
       acceleration: new THREE.Vector3(0, 0, 10),
       velocitySpread: new THREE.Vector3(40, 20, 40),
       sizeStart: 20,

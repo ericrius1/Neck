@@ -11,7 +11,6 @@ FW.Screens = Screens = (function() {
     };
     this.screens = [];
     FW.balls = [];
-    this.numUnitsAcross = 4;
     canvas = document.getElementById('textureData');
     this.context = canvas.getContext('2d');
     this.width = canvas.width;
@@ -68,9 +67,9 @@ FW.Screens = Screens = (function() {
     });
     screenMaterial = Physijs.createMaterial(material, 0, FW.bouncyFactor);
     side = 100;
-    numScreensPerRow = 5;
+    numScreensPerRow = 4;
     screenSize = side / numScreensPerRow;
-    FW.screenGeometry = new THREE.CubeGeometry(side / numScreensPerRow, 20, side / numScreensPerRow);
+    FW.screenGeometry = new THREE.CubeGeometry(side / numScreensPerRow, 7, side / numScreensPerRow);
     for (x = _i = _ref = -side / 2 + screenSize / 2, _ref1 = side / 2 - screenSize / 2; screenSize > 0 ? _i <= _ref1 : _i >= _ref1; x = _i += screenSize) {
       for (z = _j = _ref2 = -side / 2 + screenSize / 2, _ref3 = side / 2 - screenSize / 2; screenSize > 0 ? _j <= _ref3 : _j >= _ref3; z = _j += screenSize) {
         screen = new FW.Screen(new THREE.Vector3(x, 0, z));

@@ -9,7 +9,6 @@ FW.Screens = class Screens
       endY: 1
     @screens = []
     FW.balls = []
-    @numUnitsAcross = 4
     #create a canvas element
     canvas = document.getElementById('textureData')
     @context = canvas.getContext('2d')
@@ -65,9 +64,9 @@ FW.Screens = class Screens
       ,FW.bouncyFactor #  (bounciness)
 
     side = 100
-    numScreensPerRow = 5
+    numScreensPerRow = 4
     screenSize = side/numScreensPerRow
-    FW.screenGeometry = new THREE.CubeGeometry(side/numScreensPerRow, 20, side/numScreensPerRow)
+    FW.screenGeometry = new THREE.CubeGeometry(side/numScreensPerRow, 7, side/numScreensPerRow)
     for x in [-side/2 + screenSize/2..side/2- screenSize/2] by screenSize
       for z in [-side/2 +screenSize/2..side/2 - screenSize/2] by screenSize
          screen = new FW.Screen(new THREE.Vector3(x, 0, z))
