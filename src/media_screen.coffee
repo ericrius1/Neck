@@ -33,7 +33,7 @@ FW.MediaScreen = class MediaScreen
 
   #We've finished the video, now we transition to a slideshow
   loopVideo: ->
-    @video.src = 'assets/avatar.mp4'
+    @video.src = 'assets/avatar.mov'
     setTimeout(()=>
       @loopVideo()
     14000)

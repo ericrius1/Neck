@@ -35,7 +35,7 @@ FW.MediaScreen = MediaScreen = (function() {
 
   MediaScreen.prototype.loopVideo = function() {
     var _this = this;
-    this.video.src = 'assets/avatar.mp4';
+    this.video.src = 'assets/avatar.mov';
     return setTimeout(function() {
       return _this.loopVideo();
     }, 14000);

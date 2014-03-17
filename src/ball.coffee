@@ -10,6 +10,7 @@ FW.Ball= class Ball
       , 1.0 #bouncy
     @ball = new Physijs.SphereMesh sphereGeometry, ballMaterial, undefined
     @ball.position = @position
+    #Each ball should have a particle emitter
     FW.scene.add @ball
 
 
