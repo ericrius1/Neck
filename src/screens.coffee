@@ -90,29 +90,9 @@ FW.Screens = class Screens
     FW.scene.add frontWall
     frontWall.visible = false
 
-    #backside
-    screenGeo = new THREE.CubeGeometry 100, 100, 1
-    @video = document.createElement('video');
-    @video.src = 'assets/intro.mp4'
-    if window.soundOff isnt true
-      @video.autoplay = true
-    @videoTexture = new THREE.Texture(@video)
-    @videoTexture.minFilter = THREE.LinearFilter;
-    @videoTexture.magFilter = THREE.LinearFilter;
-    @videoTexture.format = THREE.RGBFormat;
-    @videoTexture.generateMipmaps = false;
-    preVideoMaterial = new THREE.MeshLambertMaterial(map: @videoTexture)
-    videoMaterial = Physijs.createMaterial \
-      preVideoMaterial
-      ,.2   #friction
-      ,FW.bouncyFactor  #bouncy
-    backWall = new Physijs.BoxMesh \
-      screenGeo
-      ,videoMaterial
-      ,0 #mass
-    backWall.position.z -= side/2
-    backWall.position.y = side/2
-    FW.scene.add backWall
+    #MEDIA SCREEN
+    @mediaScreen = new FW.MediaScreen()
+ 
 
     #leftside
     leftWall = new Physijs.BoxMesh \
@@ -144,8 +124,8 @@ FW.Screens = class Screens
 
 
   update: ->
-    if @video.readyState is @video.HAVE_ENOUGH_DATA 
-      @videoTexture.needsUpdate = true
+    @mediaScreen.update()
+
 
     #creates the image data 
     imageData = @context.createImageData @width, @height

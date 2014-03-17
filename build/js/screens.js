@@ -35,7 +35,7 @@ FW.Screens = Screens = (function() {
   };
 
   Screens.prototype.layoutScreens = function() {
-    var backWall, ceiling, frontWall, h, leftWall, material, numScreensPerRow, preVideoMaterial, rightWall, screen, screenGeo, screenMaterial, screenSize, side, videoMaterial, w, wallGeometry, wallMaterial, x, z, _i, _j, _ref, _ref1, _ref2, _ref3;
+    var ceiling, frontWall, h, leftWall, material, numScreensPerRow, rightWall, screen, screenMaterial, screenSize, side, w, wallGeometry, wallMaterial, x, z, _i, _j, _ref, _ref1, _ref2, _ref3;
     this.uniforms = {
       time: {
         type: 'f',
@@ -84,25 +84,7 @@ FW.Screens = Screens = (function() {
     frontWall.position.y += side / 2;
     FW.scene.add(frontWall);
     frontWall.visible = false;
-    screenGeo = new THREE.CubeGeometry(100, 100, 1);
-    this.video = document.createElement('video');
-    this.video.src = 'assets/intro.mp4';
-    if (window.soundOff !== true) {
-      this.video.autoplay = true;
-    }
-    this.videoTexture = new THREE.Texture(this.video);
-    this.videoTexture.minFilter = THREE.LinearFilter;
-    this.videoTexture.magFilter = THREE.LinearFilter;
-    this.videoTexture.format = THREE.RGBFormat;
-    this.videoTexture.generateMipmaps = false;
-    preVideoMaterial = new THREE.MeshLambertMaterial({
-      map: this.videoTexture
-    });
-    videoMaterial = Physijs.createMaterial(preVideoMaterial, .2, FW.bouncyFactor);
-    backWall = new Physijs.BoxMesh(screenGeo, videoMaterial, 0);
-    backWall.position.z -= side / 2;
-    backWall.position.y = side / 2;
-    FW.scene.add(backWall);
+    this.mediaScreen = new FW.MediaScreen();
     leftWall = new Physijs.BoxMesh(wallGeometry, screenMaterial, 0);
     leftWall.rotation.z = Math.PI / 2;
     leftWall.position.x -= side / 2;
@@ -120,9 +102,7 @@ FW.Screens = Screens = (function() {
 
   Screens.prototype.update = function() {
     var a, b, g, i, imageData, r, x, y, _i, _ref;
-    if (this.video.readyState === this.video.HAVE_ENOUGH_DATA) {
-      this.videoTexture.needsUpdate = true;
-    }
+    this.mediaScreen.update();
     imageData = this.context.createImageData(this.width, this.height);
     for (i = _i = 0, _ref = this.pixels; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
       x = i;
