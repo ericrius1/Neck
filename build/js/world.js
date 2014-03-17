@@ -16,6 +16,14 @@ FW.World = World = (function() {
     this.gravity = -180;
     FW.camera = new THREE.PerspectiveCamera(70.0, this.SCREEN_WIDTH / this.SCREEN_HEIGHT, 1, this.camFar);
     FW.camera.position.set(0, 30, 80);
+    this.controls = new THREE.TrackballControls(FW.camera);
+    this.controls.rotateSpeed = 1.0;
+    this.controls.zoomSpeed = 1.2;
+    this.controls.panSpeed = 0.8;
+    this.controls.noZoom = false;
+    this.controls.noPan = false;
+    this.controls.staticMoving = true;
+    this.controls.dynamicDampingFactor = 0.3;
     this.initStats();
     Physijs.scripts.worker = '/lib/physijs/physijs_worker.js';
     Physijs.scripts.ammo = '/lib/physijs/ammo.js';
@@ -42,7 +50,8 @@ FW.World = World = (function() {
 
   World.prototype.initSceneObjects = function() {
     this.spectrum = new FW.Spectrum();
-    return this.screens = new FW.Screens();
+    this.screens = new FW.Screens();
+    return FW.fire = new FW.Fire();
   };
 
   World.prototype.onWindowResize = function(event) {
@@ -69,6 +78,8 @@ FW.World = World = (function() {
   World.prototype.render = function() {
     var delta;
     this.screens.update();
+    this.controls.update();
+    FW.fire.update();
     this.render_stats.update();
     delta = FW.clock.getDelta();
     return FW.Renderer.render(FW.scene, FW.camera);

@@ -8,7 +8,7 @@ FW.Screen = class Screen
     @spiceRange = 
       startX: .23
       startY: .7375
-      startY: .48
+      endX: .48
       endY: 1
 
     @uniforms = 

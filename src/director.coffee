@@ -4,10 +4,12 @@ FW.Director = class Director
     @scene2TotalTime = 5000
 
 
+
   startShow: ->
     @startTime = Date.now()
     setTimeout(()=>
       @blowBalls()
+      FW.fire.activate()
     19000)
 
 

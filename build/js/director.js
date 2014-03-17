@@ -12,7 +12,8 @@ FW.Director = Director = (function() {
     var _this = this;
     this.startTime = Date.now();
     setTimeout(function() {
-      return _this.blowBalls();
+      _this.blowBalls();
+      return FW.fire.activate();
     }, 19000);
     FW.world = new FW.World();
     if (!soundOff) {

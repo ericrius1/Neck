@@ -15,18 +15,18 @@ FW.World = class World
     FW.camera.position.set 0, 30, 80
 
 
-    # @controls = new THREE.TrackballControls(FW.camera)
+    @controls = new THREE.TrackballControls(FW.camera)
 
-    # @controls.rotateSpeed = 1.0;
-    # @controls.zoomSpeed = 1.2;
-    # @controls.panSpeed = 0.8;
+    @controls.rotateSpeed = 1.0;
+    @controls.zoomSpeed = 1.2;
+    @controls.panSpeed = 0.8;
 
-    # @controls.noZoom = false;
-    # @controls.noPan = false;
+    @controls.noZoom = false;
+    @controls.noPan = false;
 
 
-    # @controls.staticMoving = true;
-    # @controls.dynamicDampingFactor = 0.3;
+    @controls.staticMoving = true;
+    @controls.dynamicDampingFactor = 0.3;
 
     @initStats()
 
@@ -70,6 +70,9 @@ FW.World = class World
     #SCREENS
     @screens = new FW.Screens()
 
+    #FIRE
+    FW.fire = new FW.Fire()
+
   onWindowResize : (event) ->
     @SCREEN_WIDTH = window.innerWidth
     @SCREEN_HEIGHT = window.innerHeight
@@ -97,7 +100,8 @@ FW.World = class World
   render : =>
     # @spectrum.update()
     @screens.update()
-    # @controls.update()
+    @controls.update()
+    FW.fire.update()
     @render_stats.update()
     delta = FW.clock.getDelta()
     FW.Renderer.render( FW.scene, FW.camera );

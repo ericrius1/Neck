@@ -6,7 +6,7 @@ FW.Screens = Screens = (function() {
     this.spiceRange = {
       startX: .23,
       startY: .7375,
-      startY: .48,
+      endX: .48,
       endY: 1
     };
     this.screens = [];
