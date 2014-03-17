@@ -37,6 +37,9 @@ FW.MediaScreen = class MediaScreen
     @currentIndex = 0
     # @updateSlideShow();
     @video.src = 'assets/avatar.mp4'
+    setTimeout(()=>
+      @beginSlideShow()
+    14000)
 
   updateSlideShow: ->
     if @currentIndex >= @fileNames.length
@@ -46,10 +49,6 @@ FW.MediaScreen = class MediaScreen
       @currentIndex++
       @updateSlideShow()
     8000)
-
-
-
-
 
 
   update: ->

@@ -27,8 +27,12 @@ FW.MediaScreen = MediaScreen = (function() {
   }
 
   MediaScreen.prototype.beginSlideShow = function() {
+    var _this = this;
     this.currentIndex = 0;
-    return this.video.src = 'assets/avatar.mp4';
+    this.video.src = 'assets/avatar.mp4';
+    return setTimeout(function() {
+      return _this.beginSlideShow();
+    }, 14000);
   };
 
   MediaScreen.prototype.updateSlideShow = function() {
